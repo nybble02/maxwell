@@ -12,6 +12,7 @@ Examples of unacceptable behaviour
 	Trolling, insulting comments to other members
 	Publishing other members info/files without permission
 	Any form of Harassment
+    Deliberate attempts to sabbotage the project e.g. deliberately messing up code
 
 Failure to meet the code of conduct could result in the following punishments depending on how severe the scenario is,
 
