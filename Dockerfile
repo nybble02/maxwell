@@ -1,4 +1,4 @@
 FROM openjdk:latest
-COPY ./target/classes/com /tmp/com
+COPY ./target/maxwell-0.1.0.2-jar-with-dependencies.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "com.napier.maxwell.Main"]
+ENTRYPOINT ["java", "-jar", "maxwell-0.1.0.2-jar-with-dependencies.jar"]
