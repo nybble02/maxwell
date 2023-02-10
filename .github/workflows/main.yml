@@ -1,9 +1,9 @@
-name: A workflow for Project Maxwell
+name: A workflow for my Hello World App
 on: push
 
 jobs:
   build:
-    name: Maxwell action
+    name: Hello world action
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -13,8 +13,8 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Compile with Maven
-        run: mvn compile
+      - name: Build with Maven
+        run: mvn package
       - name: Build Docker Image
         run: docker build -t semimage .
       - name: Run image
