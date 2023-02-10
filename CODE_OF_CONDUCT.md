@@ -23,7 +23,7 @@ Failure to meet the code of conduct could result in the following punishments de
 	
 Group Contacts
 	
-	Malcolm - 40530828@live.napier.ac.uk
+	Malcolm - 40530828@live.napier.ac.uk🐈
 	Nicole - 40538484@live.napier.ac.uk🐱
-	Sam - 40489185@live.napier.ac.uk
+	Sam - 40489185@live.napier.ac.uk😸
 	Fahim - 40535445@live.napier.ac.uk😺
