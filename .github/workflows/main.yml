@@ -1,9 +1,9 @@
-name: A workflow for my Hello World App
+name: A workflow for PROJECT MAXWELL
 on: push
 
 jobs:
   build:
-    name: Hello world action
+    name: Project Maxwell action
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
