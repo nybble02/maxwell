@@ -41,7 +41,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT Name" + "FROM city" + "WHERE ID = " + ID;
+            String strSelect = "SELECT ID, Name, CountryCode, District, Population " + "FROM city " + "WHERE ID = " + ID;
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -50,8 +50,12 @@ public class Main
             if (result.next())
             {
                 City city = new City();
-//                city.ID = result.getInt("ID");
+                city.ID = result.getInt("ID");
                 city.Name = result.getString("Name");
+                city.CountryCode = result.getString("CountryCode");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
                 return city;
             }
             else
@@ -79,7 +83,13 @@ public class Main
         {
             System.out.println("Displaying City.....");
 
-            System.out.println("City Name:  "+ city.Name);
+            System.out.println("City Name: "+ city.Name);
+            System.out.println("City ID: "+ city.ID);
+            System.out.println("City Country Code: "+ city.CountryCode);
+            System.out.println("City District: "+ city.District);
+            System.out.println("City Population: "+ city.Population);
+
+
         }
     }
 
