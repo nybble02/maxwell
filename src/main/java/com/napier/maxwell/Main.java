@@ -1,6 +1,7 @@
 package com.napier.maxwell;
 
 import java.sql.*;
+import java.util.concurrent.ExecutionException;
 
 public class Main
 {
@@ -16,8 +17,70 @@ public class Main
         // Connect to database
         main.connect();
 
+        // Gets a city
+        City city = main.getCity(460);
+
+        // Display city
+        main.displayCity(city);
+
         // Disconnect from database
         main.disconnect();
+    }
+
+    /**
+     * Gets a City
+     * @param ID
+     * @return City
+     */
+    public City getCity(int ID)
+    {
+        try
+        {
+            System.out.println("Getting city.....");
+            // Create a SQL statement
+            Statement statement = con.createStatement();
+
+            // String for SQL statement
+            String strSelect = "SELECT Name" + "FROM city" + "WHERE ID = " + ID;
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            if (result.next())
+            {
+                City city = new City();
+//                city.ID = result.getInt("ID");
+                city.Name = result.getString("Name");
+                return city;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    /**
+     * Displays a City
+     * @param city
+     */
+
+    public void displayCity(City city)
+    {
+
+        if (city != null)
+        {
+            System.out.println("Displaying City.....");
+
+            System.out.println("City Name:  "+ city.Name);
+        }
     }
 
     /**
