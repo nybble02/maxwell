@@ -8,4 +8,4 @@ Develop : ![license](https://img.shields.io/github/actions/workflow/status/nybbl
 
 [![Releases](https://img.shields.io/github/release/nybble02/maxwell/all.svg?style=flat-square)](https://github.com/nybble02/maxwell/releases)
 
-![Alt Text](https://media.tenor.com/SDwGg31pp4AAAAAC/maxwell-the-cat-maxwell.gif)
+![Alt Text](https://cdn.discordapp.com/attachments/1068102952427995189/1076128860904628274/6276-spinning-cat.gif)

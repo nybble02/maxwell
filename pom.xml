@@ -6,12 +6,20 @@
 
     <groupId>com.napier.maxwell</groupId>
     <artifactId>maxwell</artifactId>
-    <version>0.1.0.2</version>
+    <version>0.1.0.3</version>
 
     <properties>
         <maven.compiler.source>10</maven.compiler.source>
         <maven.compiler.target>10</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.18</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
