@@ -1,30 +1,43 @@
 package com.napier.maxwell;
 
 import java.sql.*;
-import java.util.concurrent.ExecutionException;
-
+import java.util.Scanner;
 public class Main
 {
     /**
      *  Connection to MySQL database
      */
     private Connection con = null;
+
+
+
     public static void main(String[] args)
     {
+        // Create Scanner Object - for user input
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Start ~");
+
+        String userName = scanner.nextLine();  // Read user input
+        System.out.println("Username is: " + userName);  // Output user input
+
+
         // Create new Application
-        Main main = new Main();
+        //Main main = new Main();
 
         // Connect to database
-        main.connect();
+        //main.connect();
 
         // Gets a city
-        City city = main.getCity(460);
+        //City city = main.getCity(460);
+
 
         // Display city
-        main.displayCity(city);
+        //main.displayCity(city);
+
 
         // Disconnect from database
-        main.disconnect();
+        //main.disconnect();
     }
 
     /**
