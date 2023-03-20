@@ -18,10 +18,13 @@ public class Main
         main.connect();
 
         // Gets a city
-        City city = main.getCity(460);
+        //City city = main.getCity(460);
 
         // Display city
-        main.displayCity(city);
+        //main.displayCity(city);
+
+        Country countries = main.getCounties();
+        main.displayCountries(countries);
 
         // Disconnect from database
         main.disconnect();
@@ -90,6 +93,66 @@ public class Main
             System.out.println("City Population: "+ city.Population);
 
 
+        }
+    }
+
+    public Country getCounties()
+    {
+        try
+        {
+            System.out.println("Getting Countries.....");
+            // Create a SQL statement
+            Statement statement = con.createStatement();
+
+            // String for SQL statement
+            String strSelect = "SELECT *" + "FROM country";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            if (result.next())
+            {
+                Country country = new Country();
+                country.Code = result.getString("Code");
+                country.Name = result.getString("Name");
+                country.Continent = result.getString("Continent");
+                country.Region = result.getString("Region");
+                country.SurfaceArea = result.getInt("SurfaceArea");
+                country.IndepYear = result.getInt("IndepYear");
+                country.Population = result.getInt("Population");
+                country.LifeExpectancy = result.getInt("LifeExpectancy");
+                country.GNP = result.getDouble("GNP");
+                country.GNPOld = result.getDouble("GNPOld");
+                country.LocalName = result.getString("LocalName");
+                country.GovernmentForm = result.getString("GovernmentForm");
+                country.HeadOfState = result.getString("HeadOfState");
+                country.Capital = result.getString("Capital");
+                country.Code2 = result.getString("Code2");
+
+                return country;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Country details");
+            return null;
+        }
+    }
+
+    public void displayCountries(Country country)
+    {
+
+        if (country != null)
+        {
+            System.out.println("Displaying Country.....");
+
+            System.out.println("Country Name: "+ country.Name);
         }
     }
 
