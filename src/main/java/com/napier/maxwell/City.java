@@ -8,7 +8,6 @@ import java.sql.Connection;
 
 public class City
 {
-    private Connection con = null;
 
     /**
      * City ID
