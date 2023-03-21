@@ -28,7 +28,9 @@ public class Main
         ArrayList<Country> Countries = new ArrayList<>();
 
         // Gets all the countries in the world sorted by largest population to the smallest population
-        Countries = main.getCountries();
+        //Countries = main.getCountries();
+        //Countries = main.getCountriesInContinent();
+        Countries = main.getCountriesInRegion();
 
         //Country countries = main.getCounties();
         main.displayCountries(Countries);
@@ -115,7 +117,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT Code, Name, Continent, Population FROM country ORDER BY Population DESC";
+            String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country ORDER BY Population DESC";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -128,6 +130,87 @@ public class Main
                 country.Code = result.getString("Code");
                 country.Name = result.getString("Name");
                 country.Continent = result.getString("Continent");
+                country.Region = result.getString("Region");
+                country.Population = result.getInt("Population");
+
+                Countries.add(country);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Country details");
+            return null;
+        }
+        return Countries;
+    }
+
+    /**
+     * Displays all the countries in a continent sorted by largest population to the smallest population
+     * @return ArrayList<Country>
+     */
+    public ArrayList<Country> getCountriesInContinent()
+    {
+        ArrayList<Country> Countries = new ArrayList<>();
+        try
+        {
+            Statement statement = con.createStatement();
+
+            // String for SQL statement
+            String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country WHERE Continent = 'Europe' ORDER BY Population DESC";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            Country country;
+
+            while (result.next())
+            {
+                country = new Country();
+                country.Code = result.getString("Code");
+                country.Name = result.getString("Name");
+                country.Continent = result.getString("Continent");
+                country.Region = result.getString("Region");
+                country.Population = result.getInt("Population");
+
+                Countries.add(country);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Country details");
+            return null;
+        }
+        return Countries;
+    }
+
+    /**
+     * Displays all the countries in a region sorted by largest population to the smallest population
+     * @return ArrayList<Country>
+     */
+    public ArrayList<Country> getCountriesInRegion()
+    {
+        ArrayList<Country> Countries = new ArrayList<>();
+        try
+        {
+            Statement statement = con.createStatement();
+
+            // String for SQL statement
+            String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country WHERE Region = 'British Islands' ORDER BY Population DESC";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            Country country;
+
+            while (result.next())
+            {
+                country = new Country();
+                country.Code = result.getString("Code");
+                country.Name = result.getString("Name");
+                country.Continent = result.getString("Continent");
+                country.Region = result.getString("Region");
                 country.Population = result.getInt("Population");
 
                 Countries.add(country);
@@ -148,15 +231,15 @@ public class Main
      */
     public void displayCountries(ArrayList<Country> countries)
     {
-        String leftAlignFormat = "| %-5s | %-44s | %-18s | %-12s |%n";
-        System.out.format("+-------+----------------------------------------------+--------------------+--------------+%n");
-        System.out.format("| Code  | Name                                         | Continent          | Population   |%n");
-        System.out.format("+-------+----------------------------------------------+--------------------+--------------+%n");
+        String leftAlignFormat = "| %-5s | %-44s | %-18s | %-28s | %-12s |%n";
+        System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+%n");
+        System.out.format("| Code  | Name                                         | Continent          | Region                       | Population   |%n");
+        System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+%n");
 
         for (Country country: countries)
         {
-            System.out.format(leftAlignFormat, country.Code, country.Name, country.Continent, country.Population);
-            System.out.format("+-------+----------------------------------------------+--------------------+--------------+%n");
+            System.out.format(leftAlignFormat, country.Code, country.Name, country.Continent, country.Region, country.Population);
+            System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+%n");
         }
 
     }
