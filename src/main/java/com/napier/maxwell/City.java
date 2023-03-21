@@ -3,8 +3,13 @@ package com.napier.maxwell;
 /**
 * Represents a city
 */
+
+import java.sql.Connection;
+
 public class City
 {
+    private Connection con = null;
+
     /**
      * City ID
      */
@@ -29,4 +34,6 @@ public class City
      * The population of a City
      */
     public int Population;
+
+
 }

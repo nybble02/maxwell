@@ -1,7 +1,7 @@
 package com.napier.maxwell;
 
 import java.sql.*;
-import java.util.concurrent.ExecutionException;
+import java.util.ArrayList;
 
 public class Main
 {
@@ -17,50 +17,54 @@ public class Main
         // Connect to database
         main.connect();
 
-        // Gets a city
-        City city = main.getCity(460);
+        // List that contains cities
+        ArrayList<City> Cities = new ArrayList<>();
+
+        // Gets all the cities in the world sorted by largest population to the smallest population
+        //Cities = main.getCitiesInWorld();
+
+        // Gets the cities that are in a continent
+        Cities = main.getCitiesInContinent("Africa");
 
         // Display city
-        main.displayCity(city);
+        main.displayCity(Cities);
 
         // Disconnect from database
         main.disconnect();
     }
 
     /**
-     * Gets a City
-     * @param ID
-     * @return City
+     * Gets all the Cities in the World
+     * @return A List of Cities in the World
      */
-    public City getCity(int ID)
+    public ArrayList<City> getCitiesInWorld()
     {
+        ArrayList<City> citiesInWorld = new ArrayList<>();
         try
         {
-            System.out.println("Getting city.....");
             // Create a SQL statement
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT ID, Name, CountryCode, District, Population " + "FROM city " + "WHERE ID = " + ID;
+            String strSelect = "SELECT city.ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.countryCode = country.Code ORDER BY city.Population DESC;";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
-            if (result.next())
+
+            City city;
+
+            while(result.next())
             {
-                City city = new City();
+                city = new City();
+
                 city.ID = result.getInt("ID");
-                city.Name = result.getString("Name");
-                city.CountryCode = result.getString("CountryCode");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
                 city.District = result.getString("District");
                 city.Population = result.getInt("Population");
 
-                return city;
-            }
-            else
-            {
-                return null;
+
+                citiesInWorld.add(city);
             }
         }
         catch (Exception e)
@@ -69,28 +73,73 @@ public class Main
             System.out.println("Failed to get City details");
             return null;
         }
+
+        return citiesInWorld;
     }
 
     /**
-     * Displays a City
-     * @param city
+     * Gets all the Cities in a Continent
+     * @param continent
+     * @return A List of Cities in a Continent
      */
-
-    public void displayCity(City city)
+    public ArrayList<City> getCitiesInContinent(String continent)
     {
+        ArrayList<City> citiesInContinent= new ArrayList<>();
 
-        if (city != null)
+        try
         {
-            System.out.println("Displaying City.....");
+            // Create a SQL statement
+            Statement statement = con.createStatement();
 
-            System.out.println("City Name: "+ city.Name);
-            System.out.println("City ID: "+ city.ID);
-            System.out.println("City Country Code: "+ city.CountryCode);
-            System.out.println("City District: "+ city.District);
-            System.out.println("City Population: "+ city.Population);
+            // String for SQL statement
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.CountryCode = country.Code WHERE country.Continent = " + "\'" + continent + "\'" + " ORDER BY city.Population DESC;";
 
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while(result.next())
+            {
+                city = new City();
+
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                citiesInContinent.add(city);
+            }
 
         }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+
+        return citiesInContinent;
+    }
+
+    /**
+     * Displays A City Report
+     * @param cities ArrayList
+     */
+    public void displayCity(ArrayList<City> cities)
+    {
+        String leftAlignFormat = "| %-40s | %-40s | %-40s | %-21s |%n";
+        System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
+        System.out.format("| City                                     | Country                                  | District                                 | Population            |%n");
+        System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
+
+        for (City city: cities)
+        {
+            System.out.format(leftAlignFormat, city.Name, city.CountryCode, city.District, city.Population);
+            System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
+        }
+
     }
 
     /**
