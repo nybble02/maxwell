@@ -1,0 +1,73 @@
+USER STORIES
+
+-As a developer, I would want the countries in the world - including regions and continents - to be organised by largest population to smallest to view the differences of each country.
+
+-As a developer, I would want the top N populated countries in the world - including regions and continents - where N is provided by the user so that the user can input their numbers.
+
+-As a developer, I would want the cities in the world - including regions, continents, countries and districts - to be organised by largest population to smallest to create a descending order of the cities and its origins.
+
+-As a developer, I would want the top N populated CITIES in the world - including regions, continents, countries and districts - where N is provided by the user so that the user can input their numbers of view the top N.
+
+-As a developer, I would want the capital cities in the world - including regions and continents - to be organised by largest population to smallest to create a descending order of the capital cities.
+
+-As a developer, I would want the top N populated CAPITAL CITIES in the world - including regions and continents - where N is provided by the user so that the user can input their numbers of view the top N.
+
+-As a developer, I would want the population of people - ESPECIALLY INCLUDING LIVING IN CITIES AND NOT LIVING IN CITIES IN EACH CONTINENT, REGION AND COUNTRY - to see the abundance of people living around different vicinities of the world.
+
+-As a developer, I would want to include to number of people to who speak the following languages (Chinese, English, Hindi, Spanish, Arabic) from greatest number to smallest, also including the percentage of the world population, to view the diversity of people in the world.
+
+
+
+
+
+
+
+
+
+
+
+Additionally, the following information should be accessible to the organisation:
+
+The population of the world.
+The population of a continent.
+The population of a region.
+The population of a country.
+The population of a district.
+The population of a city.
+
+
+Country Report
+A country report requires the following columns:
+
+-Code
+-Name
+-Continent
+-Region
+-Population
+-Capital
+
+
+City Report
+A city report requires the following columns:
+
+-Name
+-Country
+-District
+-Population
+
+
+Capital City Report
+A capital city report requires the following columns:
+
+-Name
+-Country
+-Population
+
+
+Population Report
+For the population reports, the following information is requested:
+
+-The name of the continent/region/country
+-The total population of the continent/region/country
+-The total population of the continent/region/country living in cities (including a %)
+-The total population of the continent/region/country not living in cities (including a %)
