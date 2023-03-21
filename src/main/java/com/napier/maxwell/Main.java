@@ -1,6 +1,7 @@
 package com.napier.maxwell;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class Main
@@ -23,8 +24,14 @@ public class Main
         // Display city
         //main.displayCity(city);
 
-        Country countries = main.getCounties();
-        main.displayCountries(countries);
+        // list that contains countries
+        ArrayList<Country> Countries = new ArrayList<>();
+
+        // Gets all the countries in the world sorted by largest population to the smallest population
+        Countries = main.getCountries();
+
+        //Country countries = main.getCounties();
+        main.displayCountries(Countries);
 
         // Disconnect from database
         main.disconnect();
@@ -96,45 +103,34 @@ public class Main
         }
     }
 
-    public Country getCounties()
+    /**
+     * Gets all the countries in the world sorted by largest population to the smallest population
+     * @return ArrayList<Country>
+     */
+    public ArrayList<Country> getCountries()
     {
+        ArrayList<Country> Countries = new ArrayList<>();
         try
         {
-            System.out.println("Getting Countries.....");
-            // Create a SQL statement
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT *" + "FROM country";
+            String strSelect = "SELECT Code, Name, Continent, Population FROM country ORDER BY Population DESC";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
-            if (result.next())
+
+            Country country;
+
+            while (result.next())
             {
-                Country country = new Country();
+                country = new Country();
                 country.Code = result.getString("Code");
                 country.Name = result.getString("Name");
                 country.Continent = result.getString("Continent");
-                country.Region = result.getString("Region");
-                country.SurfaceArea = result.getInt("SurfaceArea");
-                country.IndepYear = result.getInt("IndepYear");
                 country.Population = result.getInt("Population");
-                country.LifeExpectancy = result.getInt("LifeExpectancy");
-                country.GNP = result.getDouble("GNP");
-                country.GNPOld = result.getDouble("GNPOld");
-                country.LocalName = result.getString("LocalName");
-                country.GovernmentForm = result.getString("GovernmentForm");
-                country.HeadOfState = result.getString("HeadOfState");
-                country.Capital = result.getString("Capital");
-                country.Code2 = result.getString("Code2");
 
-                return country;
-            }
-            else
-            {
-                return null;
+                Countries.add(country);
             }
         }
         catch (Exception e)
@@ -143,17 +139,26 @@ public class Main
             System.out.println("Failed to get Country details");
             return null;
         }
+        return Countries;
     }
 
-    public void displayCountries(Country country)
+    /**
+     * Displays all the countries in the world sorted by largest population to the smallest population
+     * @param countries
+     */
+    public void displayCountries(ArrayList<Country> countries)
     {
+        String leftAlignFormat = "| %-5s | %-44s | %-18s | %-12s |%n";
+        System.out.format("+-------+----------------------------------------------+--------------------+--------------+%n");
+        System.out.format("| Code  | Name                                         | Continent          | Population   |%n");
+        System.out.format("+-------+----------------------------------------------+--------------------+--------------+%n");
 
-        if (country != null)
+        for (Country country: countries)
         {
-            System.out.println("Displaying Country.....");
-
-            System.out.println("Country Name: "+ country.Name);
+            System.out.format(leftAlignFormat, country.Code, country.Name, country.Continent, country.Population);
+            System.out.format("+-------+----------------------------------------------+--------------------+--------------+%n");
         }
+
     }
 
     /**
