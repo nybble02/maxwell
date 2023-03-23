@@ -73,7 +73,7 @@ public class Country {
     /**
      * Country Capital
      */
-    public int Capital;
+    public String Capital;
 
     /**
      * Country Code2

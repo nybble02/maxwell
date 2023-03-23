@@ -121,7 +121,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country ORDER BY Population DESC";
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital ORDER BY Population DESC";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -131,11 +131,12 @@ public class Main
             while (result.next())
             {
                 country = new Country();
-                country.Code = result.getString("Code");
-                country.Name = result.getString("Name");
-                country.Continent = result.getString("Continent");
-                country.Region = result.getString("Region");
-                country.Population = result.getInt("Population");
+                country.Code = result.getString("country.Code");
+                country.Name = result.getString("country.Name");
+                country.Continent = result.getString("country.Continent");
+                country.Region = result.getString("country.Region");
+                country.Population = result.getInt("country.Population");
+                country.Capital = result.getString("city.Name");
 
                 Countries.add(country);
             }
@@ -161,7 +162,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country WHERE Continent = 'Europe' ORDER BY Population DESC";
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Continent = 'Europe' ORDER BY Population DESC";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -171,11 +172,12 @@ public class Main
             while (result.next())
             {
                 country = new Country();
-                country.Code = result.getString("Code");
-                country.Name = result.getString("Name");
-                country.Continent = result.getString("Continent");
-                country.Region = result.getString("Region");
-                country.Population = result.getInt("Population");
+                country.Code = result.getString("country.Code");
+                country.Name = result.getString("country.Name");
+                country.Continent = result.getString("country.Continent");
+                country.Region = result.getString("country.Region");
+                country.Population = result.getInt("country.Population");
+                country.Capital = result.getString("city.Name");
 
                 Countries.add(country);
             }
@@ -201,7 +203,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country WHERE Region = 'British Islands' ORDER BY Population DESC";
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Region = 'British Islands' ORDER BY Population DESC";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -211,11 +213,12 @@ public class Main
             while (result.next())
             {
                 country = new Country();
-                country.Code = result.getString("Code");
-                country.Name = result.getString("Name");
-                country.Continent = result.getString("Continent");
-                country.Region = result.getString("Region");
-                country.Population = result.getInt("Population");
+                country.Code = result.getString("country.Code");
+                country.Name = result.getString("country.Name");
+                country.Continent = result.getString("country.Continent");
+                country.Region = result.getString("country.Region");
+                country.Population = result.getInt("country.Population");
+                country.Capital = result.getString("city.Name");
 
                 Countries.add(country);
             }
@@ -241,7 +244,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country ORDER BY Population DESC LIMIT 20";
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital ORDER BY Population DESC LIMIT 20";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -251,11 +254,12 @@ public class Main
             while (result.next())
             {
                 country = new Country();
-                country.Code = result.getString("Code");
-                country.Name = result.getString("Name");
-                country.Continent = result.getString("Continent");
-                country.Region = result.getString("Region");
-                country.Population = result.getInt("Population");
+                country.Code = result.getString("country.Code");
+                country.Name = result.getString("country.Name");
+                country.Continent = result.getString("country.Continent");
+                country.Region = result.getString("country.Region");
+                country.Population = result.getInt("country.Population");
+                country.Capital = result.getString("city.Name");
 
                 Countries.add(country);
             }
@@ -281,7 +285,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country WHERE Continent = 'Europe' ORDER BY Population DESC LIMIT 10";
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Continent = 'Europe' ORDER BY Population DESC LIMIT 10";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -291,11 +295,12 @@ public class Main
             while (result.next())
             {
                 country = new Country();
-                country.Code = result.getString("Code");
-                country.Name = result.getString("Name");
-                country.Continent = result.getString("Continent");
-                country.Region = result.getString("Region");
-                country.Population = result.getInt("Population");
+                country.Code = result.getString("country.Code");
+                country.Name = result.getString("country.Name");
+                country.Continent = result.getString("country.Continent");
+                country.Region = result.getString("country.Region");
+                country.Population = result.getInt("country.Population");
+                country.Capital = result.getString("city.Name");
 
                 Countries.add(country);
             }
@@ -321,7 +326,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country WHERE Region = 'British Islands' ORDER BY Population DESC LIMIT 1";
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Region = 'British Islands' ORDER BY Population DESC LIMIT 1";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -331,11 +336,12 @@ public class Main
             while (result.next())
             {
                 country = new Country();
-                country.Code = result.getString("Code");
-                country.Name = result.getString("Name");
-                country.Continent = result.getString("Continent");
-                country.Region = result.getString("Region");
-                country.Population = result.getInt("Population");
+                country.Code = result.getString("country.Code");
+                country.Name = result.getString("country.Name");
+                country.Continent = result.getString("country.Continent");
+                country.Region = result.getString("country.Region");
+                country.Population = result.getInt("country.Population");
+                country.Capital = result.getString("city.Name");
 
                 Countries.add(country);
             }
@@ -355,15 +361,15 @@ public class Main
      */
     public void displayCountries(ArrayList<Country> countries)
     {
-        String leftAlignFormat = "| %-5s | %-44s | %-18s | %-28s | %-12s |%n";
-        System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+%n");
-        System.out.format("| Code  | Name                                         | Continent          | Region                       | Population   |%n");
-        System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+%n");
+        String leftAlignFormat = "| %-5s | %-44s | %-18s | %-28s | %-12s | %-34s |%n";
+        System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+------------------------------------+%n");
+        System.out.format("| Code  | Name                                         | Continent          | Region                       | Population   | Capital                            |%n");
+        System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+------------------------------------+%n");
 
         for (Country country: countries)
         {
-            System.out.format(leftAlignFormat, country.Code, country.Name, country.Continent, country.Region, country.Population);
-            System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+%n");
+            System.out.format(leftAlignFormat, country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital);
+            System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+------------------------------------+%n");
         }
 
     }
