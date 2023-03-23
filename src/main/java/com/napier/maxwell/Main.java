@@ -29,11 +29,11 @@ public class Main
 
         // Gets all the countries in the world sorted by largest population to the smallest population
         //Countries = main.getCountries();
-        //Countries = main.getCountriesInContinent();
-        //Countries = main.getCountriesInRegion();
-        //Countries = main.getNCountries();
-        //Countries = main.getNCountriesInContinent();
-        //Countries = main.getNCountriesInRegion();
+        //Countries = main.getCountriesInContinent("Europe");
+        //Countries = main.getCountriesInRegion("British Islands");
+        //Countries = main.getNCountries(10);
+        Countries = main.getNCountriesInContinent(10, "Europe");
+        //Countries = main.getNCountriesInRegion(1, "British Islands");
 
 
         //Country countries = main.getCounties();
@@ -154,7 +154,7 @@ public class Main
      * Displays all the countries in a continent sorted by largest population to the smallest population
      * @return ArrayList<Country>
      */
-    public ArrayList<Country> getCountriesInContinent()
+    public ArrayList<Country> getCountriesInContinent(String continent)
     {
         ArrayList<Country> Countries = new ArrayList<>();
         try
@@ -162,7 +162,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Continent = 'Europe' ORDER BY Population DESC";
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Continent = " + "\''" + continent + "\''" + " ORDER BY Population DESC";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -195,7 +195,7 @@ public class Main
      * Displays all the countries in a region sorted by largest population to the smallest population
      * @return ArrayList<Country>
      */
-    public ArrayList<Country> getCountriesInRegion()
+    public ArrayList<Country> getCountriesInRegion(String region)
     {
         ArrayList<Country> Countries = new ArrayList<>();
         try
@@ -203,7 +203,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Region = 'British Islands' ORDER BY Population DESC";
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Region = " + "\'" + region + "\'" + "ORDER BY Population DESC";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -236,7 +236,7 @@ public class Main
      * Gets all the countries in the world sorted by largest population to the smallest population
      * @return ArrayList<Country>
      */
-    public ArrayList<Country> getNCountries()
+    public ArrayList<Country> getNCountries(int N)
     {
         ArrayList<Country> Countries = new ArrayList<>();
         try
@@ -244,7 +244,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital ORDER BY Population DESC LIMIT 20";
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital ORDER BY Population DESC LIMIT " + N;
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -277,7 +277,7 @@ public class Main
      * Displays all the countries in a continent sorted by largest population to the smallest population
      * @return ArrayList<Country>
      */
-    public ArrayList<Country> getNCountriesInContinent()
+    public ArrayList<Country> getNCountriesInContinent(int N, String continent)
     {
         ArrayList<Country> Countries = new ArrayList<>();
         try
@@ -285,7 +285,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Continent = 'Europe' ORDER BY Population DESC LIMIT 10";
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Continent = " + "\'" + continent + "\'" + "ORDER BY Population DESC LIMIT " + N;
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -318,7 +318,7 @@ public class Main
      * Displays all the countries in a region sorted by largest population to the smallest population
      * @return ArrayList<Country>
      */
-    public ArrayList<Country> getNCountriesInRegion()
+    public ArrayList<Country> getNCountriesInRegion(int N, String region)
     {
         ArrayList<Country> Countries = new ArrayList<>();
         try
@@ -326,7 +326,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Region = 'British Islands' ORDER BY Population DESC LIMIT 1";
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Region = "+ "\'" + region + "\'" +" ORDER BY Population DESC LIMIT " + N;
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
