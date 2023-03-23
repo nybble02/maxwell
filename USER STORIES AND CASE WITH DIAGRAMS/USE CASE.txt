@@ -1,0 +1,104 @@
+USE CASE #1
+
+
+
+Goal in Context: As a developer, I would want the countries in the world - including regions and continents - to be organised by largest population to smallest to view the differences of each country.
+
+Scope: Company.
+
+Level: Primary.
+
+Preconditions: We know the role; use the existing database.
+
+Success End Condition: Move on to the next task.
+
+Failed End Condition: Provide a valid reason why and urgently get help.
+
+Primary Actor: Employee at an organisation.
+
+Trigger: A request is sent to the employee.
+
+Main Success Scenario:
+
+-Developer gets countries from the database
+-Countries get organised from biggest to smallest, population-wise
+-Must also get regions and continents included.
+
+Extensions:
+
+-If role doesn't exists, the employee of the organisation informs the user.
+
+Sub-variations: None.
+
+Schedule: use case needs to be delivered this week, 3rd of March.
+
+
+USE CASE #2
+
+
+
+Goal in Context: As a developer, I would want the top N populated countries in the world - including regions and continents - where N is provided by the user so that the user can input their numbers.
+
+Scope: Company.
+
+Level: Medium.
+
+Preconditions: Using the exising database to access the records of countries.
+
+Success End Condition: Move on to the next task.
+
+Failed End Condition: Provide a valid reason why and urgently get help.
+
+Primary Actor: Employee at an organisation.
+
+Trigger: A request is sent to the employee.
+
+Main Success Scenario:
+
+-Developer gets countries from the database
+-Allows the user to input their details.
+-Must also get regions and continents included.
+
+Extensions:
+
+-If role doesn't exists or stops for a valid reason, the employee of the organisation informs the user.
+
+Sub-variations: Could potentially create a user branch.
+
+Schedule: use case needs to be delivered this week, 3rd of March.
+
+
+
+USE CASE #3
+
+
+
+Goal in Context: As a developer, I would want to include to number of people to who speak the following languages (Chinese, English, Hindi, Spanish, Arabic) from greatest number to smallest, also including the percentage of the world population, to view the diversity of people in the world.
+
+Scope: Company.
+
+Level: Medium.
+
+Preconditions: Use native words on specific languages mentioned.
+
+Success End Condition: Move on to the next task.
+
+Failed End Condition: Provide a valid reason why and urgently get help.
+
+Primary Actor: Employee at an organisation.
+
+Trigger: A request is sent to the employee.
+
+Main Success Scenario:
+
+-Research the following languages mentioned.
+-Include % of the world population.
+
+Extensions:
+
+-If role doesn't exists or stops for a valid reason, the employee of the organisation informs the user.
+
+Sub-variations: Could potentially create a language branch.
+
+Schedule: use case needs to be delivered this week, 3rd of March.
+
