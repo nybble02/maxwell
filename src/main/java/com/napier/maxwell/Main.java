@@ -213,7 +213,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Region = " + "\'" + region + "\'" + "ORDER BY Population DESC";
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital WHERE Region = " + "\'" + region + "\'" + " ORDER BY Population DESC";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
