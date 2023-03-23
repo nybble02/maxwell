@@ -1,7 +1,7 @@
 package com.napier.maxwell;
 
 import java.sql.*;
-import java.util.concurrent.ExecutionException;
+
 
 public class Main
 {
@@ -22,6 +22,15 @@ public class Main
 
         // Display city
         main.displayCity(city);
+
+        // Gets a capital city
+        CapitalCities CC = main.getCapitals();
+
+        // Display city
+        main.displayCapitals(CC);
+
+
+
 
         // Disconnect from database
         main.disconnect();
@@ -88,6 +97,79 @@ public class Main
             System.out.println("City Country Code: "+ city.CountryCode);
             System.out.println("City District: "+ city.District);
             System.out.println("City Population: "+ city.Population);
+
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public CapitalCities getCapitals()
+    {
+        try
+        {
+            System.out.println("Getting capital cities.....");
+            // Create a SQL statement
+            Statement statement = con.createStatement();
+
+            // String for SQL statement
+            String strSelect = "SELECT city.name, country.name as 'Country', city.population FROM country INNER JOIN city ON city.id = country.capital ORDER BY city.population DESC;";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            if (result.next())
+            {
+                CapitalCities CC = new CapitalCities();
+
+                CC.Name = result.getString("Name");
+                CC.Country = result.getString("Country");
+                CC.Population = result.getInt("Population");
+
+                return CC;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Capital Cities details");
+            return null;
+        }
+    }
+
+    /**
+     * Displays a Capital Cities
+     * @param CC
+     */
+
+    public void displayCapitals(CapitalCities CC)
+    {
+
+        if (CC != null)
+        {
+            System.out.println("Displaying Capital Cities.....");
+
+            System.out.println("Capital Cities Name: "+ CC.Name);
+            System.out.println("Capital Cities Country: "+ CC.Country);
+            System.out.println("Capital Cities Population: "+ CC.Population);
 
 
         }
