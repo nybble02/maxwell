@@ -18,8 +18,39 @@ public class Main
         // Connect to database
         main.connect();
 
-        // Gets a city
-        //City city = main.getCity(460);
+        // List that contains cities
+        ArrayList<City> Cities = new ArrayList<>();
+
+        // Gets all the cities in the world sorted by largest population to the smallest population
+        //Cities = main.getCitiesInWorld();
+
+        // Gets the cities that are in a continent
+        //Cities = main.getCitiesInContinent("Africa");
+
+        // Gets the cities in a Region
+        //Cities = main.getCitiesInRegion("Southern Europe");
+
+        //Gets the cities in a Country
+        //Cities = main.getCitiesInCountry("South Africa");
+
+        //Gets the cities in a District
+        //Cities = main.getCitiesInDistrict("Scotland");
+
+        // Get the count of populated cities in the world
+        //Cities = main.getNCities(3);
+
+        // Gets the count of populated cities in a continent
+        //Cities = main.getNCitiesInContinent("Africa", 3);
+
+        // Gets the count of populated cities in a Region
+        //Cities = main.getNCitiesInRegion("Eastern Europe", 5);
+
+        // Gets the count of populated cities in a Country
+        //Cities = main.getNCitiesInCountry("Japan", 10);
+
+        //Gets the count of populated cities in a District
+        Cities = main.getNCitiesInDistrict("Scotland", 3);
+
 
         // Display city
         //main.displayCity(city);
@@ -48,46 +79,137 @@ public class Main
 
         // Display Country Reports
         main.displayCountries(Countries);
+        main.displayCity(Cities);
 
         // Disconnect from database
         main.disconnect();
     }
 
     /**
-     * Gets a City
-     * @param ID
-     * @return City
+     * Gets all the Cities in the World
+     * @return A List of Cities in the World
      */
-    public City getCity(int ID)
+    public ArrayList<City> getCitiesInWorld()
     {
+        ArrayList<City> citiesInWorld = new ArrayList<>();
         try
         {
-            System.out.println("Getting city.....");
             // Create a SQL statement
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT ID, Name, CountryCode, District, Population " + "FROM city " + "WHERE ID = " + ID;
+            String strSelect = "SELECT city.ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.countryCode = country.Code ORDER BY city.Population DESC;";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
-            // Return new employee if valid.
-            // Check one is returned
-            if (result.next())
+
+            City city;
+
+            while(result.next())
             {
-                City city = new City();
+                city = new City();
+
                 city.ID = result.getInt("ID");
-                city.Name = result.getString("Name");
-                city.CountryCode = result.getString("CountryCode");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
                 city.District = result.getString("District");
                 city.Population = result.getInt("Population");
 
-                return city;
+
+                citiesInWorld.add(city);
             }
-            else
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+
+        return citiesInWorld;
+    }
+
+    /**
+     * Gets all the Cities in a Continent
+     * @param continent
+     * @return ArrayList<City>
+     */
+    public ArrayList<City> getCitiesInContinent(String continent)
+    {
+        ArrayList<City> citiesInContinent= new ArrayList<>();
+
+        try
+        {
+            // Create a SQL statement
+            Statement statement = con.createStatement();
+
+            // String for SQL statement
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.CountryCode = country.Code WHERE country.Continent = " + "\'" + continent + "\'" + " ORDER BY city.Population DESC;";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while(result.next())
             {
-                return null;
+                city = new City();
+
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                citiesInContinent.add(city);
             }
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+
+        return citiesInContinent;
+    }
+
+    /**
+     * Gets all the Cities in a Region
+     * @param region
+     * @return ArrayList<City>
+     */
+    public ArrayList<City> getCitiesInRegion(String region)
+    {
+        ArrayList citiesInRegion =  new ArrayList<>();
+
+        try
+        {
+            // Create a SQL statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.CountryCode = country.Code WHERE country.Region = " + "\'" + region + "\'" + " ORDER BY city.Population DESC;";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while(result.next())
+            {
+                city = new City();
+
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                citiesInRegion.add(city);
+            }
+
+            return citiesInRegion;
+
         }
         catch (Exception e)
         {
@@ -98,25 +220,326 @@ public class Main
     }
 
     /**
-     * Displays a City
-     * @param city
+     * Gets a City in a country
+     * @param country
+     * @return
      */
-
-    public void displayCity(City city)
+    public ArrayList<City> getCitiesInCountry(String country)
     {
+        ArrayList citiesInCountry =  new ArrayList<>();
 
-        if (city != null)
+        try
         {
-            System.out.println("Displaying City.....");
+            // Create a SQL statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.CountryCode = country.Code WHERE country.Name = " + "\'" + country + "\'" + " ORDER BY city.Population DESC;";
 
-            System.out.println("City Name: "+ city.Name);
-            System.out.println("City ID: "+ city.ID);
-            System.out.println("City Country Code: "+ city.CountryCode);
-            System.out.println("City District: "+ city.District);
-            System.out.println("City Population: "+ city.Population);
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
 
+            City city;
+
+            while(result.next())
+            {
+                city = new City();
+
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                citiesInCountry.add(city);
+            }
+
+            return citiesInCountry;
 
         }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets a City in a District
+     * @param district
+     * @return ArrayList<City>
+     */
+    public ArrayList<City> getCitiesInDistrict(String district)
+    {
+        ArrayList<City> citiesInDistrict =  new ArrayList<>();
+
+        try
+        {
+            // Create a SQL statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.CountryCode = country.Code WHERE country.Name = " + "\'" + district + "\'" + " ORDER BY city.Population DESC;";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while(result.next())
+            {
+                city = new City();
+
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                citiesInDistrict.add(city);
+            }
+
+            return citiesInDistrict;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+    }
+
+    /**
+     * Get the count of populated cities in the world
+     * @param count
+     * @return ArrayList<City>
+     */
+
+    public ArrayList<City> getNCities(int count)
+    {
+        ArrayList<City> cityList = new ArrayList<>();
+
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.CountryCode = country.Code ORDER BY city.Population DESC LIMIT " + count + ";";
+
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while (result.next())
+            {
+                city = new City();
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                cityList.add(city);
+            }
+            return cityList;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+
+    }
+
+
+    /**
+     * Get the count of populated cities in a continent
+     * @param continent
+     * @param count
+     * @return
+     */
+    public ArrayList<City> getNCitiesInContinent(String continent ,int count)
+    {
+        ArrayList<City> cityList = new ArrayList<>();
+
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.CountryCode = country.Code WHERE country.Continent = " + "\'" + continent + "\'" + " ORDER BY city.Population DESC LIMIT " + count +";";
+
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while (result.next())
+            {
+                city = new City();
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                cityList.add(city);
+            }
+            return cityList;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+
+    }
+
+    /**
+     *  Gets the count of populated cities in a Region
+     * @param region
+     * @param count
+     * @return ArrayList<City>
+     */
+    public ArrayList<City> getNCitiesInRegion(String region ,int count)
+    {
+        ArrayList<City> cityList = new ArrayList<>();
+
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.CountryCode = country.Code WHERE country.Region = " + "\'" + region + "\'" + " ORDER BY city.Population DESC LIMIT " + count +";";
+
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while (result.next())
+            {
+                city = new City();
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                cityList.add(city);
+            }
+            return cityList;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+
+    }
+
+    /**
+     *  Gets the count of populated cities in a Country
+     * @param country
+     * @param count
+     * @return ArrayList<City>
+     */
+    public ArrayList<City> getNCitiesInCountry(String country ,int count)
+    {
+        ArrayList<City> cityList = new ArrayList<>();
+
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.CountryCode = country.Code WHERE country.Name = " + "\'" + country + "\'" + " ORDER BY city.Population DESC LIMIT " + count +";";
+
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while (result.next())
+            {
+                city = new City();
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                cityList.add(city);
+            }
+            return cityList;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+
+    }
+
+    /**
+     *  Gets the count of populated cities in a District
+     * @param district
+     * @param count
+     * @return ArrayList<City>
+     */
+    public ArrayList<City> getNCitiesInDistrict(String district ,int count)
+    {
+        ArrayList<City> cityList = new ArrayList<>();
+
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.CountryCode = country.Code WHERE District = " + "\'" + district + "\'" + " ORDER BY city.Population DESC LIMIT " + count +";";
+
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while (result.next())
+            {
+                city = new City();
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                cityList.add(city);
+            }
+            return cityList;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get City details");
+            return null;
+        }
+
+    }
+
+    /**
+     * Displays A City Report
+     * @param cities ArrayList
+     */
+    public void displayCity(ArrayList<City> cities)
+    {
+        String leftAlignFormat = "| %-40s | %-40s | %-40s | %-21s |%n";
+        System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
+        System.out.format("| City                                     | Country                                  | District                                 | Population            |%n");
+        System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
+
+        for (City city: cities)
+        {
+            System.out.format(leftAlignFormat, city.Name, city.CountryCode, city.District, city.Population);
+            System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
+        }
+
     }
 
     /**
