@@ -33,7 +33,7 @@ public class Main
         //Countries = main.getCountriesInRegion();
         //Countries = main.getNCountries();
         //Countries = main.getNCountriesInContinent();
-        Countries = main.getNCountriesInRegion();
+        //Countries = main.getNCountriesInRegion();
 
 
         //Country countries = main.getCounties();
