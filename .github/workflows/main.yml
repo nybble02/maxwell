@@ -16,8 +16,8 @@ jobs:
       - name: Build with Maven
         run: mvn package
       - name: Build Docker Image
-        run: docker build -t semimage .
+        run: docker build -t maxwellimage .
       - name: Run image
-        run: docker run --name semcontainer -d semimage
+        run: docker run --name maxwellcontainer -d maxwellimage
       - name: view logs
-        run: docker logs semcontainer
+        run: docker logs maxwellcontainer
