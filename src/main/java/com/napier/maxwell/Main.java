@@ -30,7 +30,11 @@ public class Main
         // Gets all the countries in the world sorted by largest population to the smallest population
         //Countries = main.getCountries();
         //Countries = main.getCountriesInContinent();
-        Countries = main.getCountriesInRegion();
+        //Countries = main.getCountriesInRegion();
+        //Countries = main.getNCountries();
+        //Countries = main.getNCountriesInContinent();
+        Countries = main.getNCountriesInRegion();
+
 
         //Country countries = main.getCounties();
         main.displayCountries(Countries);
@@ -198,6 +202,126 @@ public class Main
 
             // String for SQL statement
             String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country WHERE Region = 'British Islands' ORDER BY Population DESC";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            Country country;
+
+            while (result.next())
+            {
+                country = new Country();
+                country.Code = result.getString("Code");
+                country.Name = result.getString("Name");
+                country.Continent = result.getString("Continent");
+                country.Region = result.getString("Region");
+                country.Population = result.getInt("Population");
+
+                Countries.add(country);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Country details");
+            return null;
+        }
+        return Countries;
+    }
+
+    /**
+     * Gets all the countries in the world sorted by largest population to the smallest population
+     * @return ArrayList<Country>
+     */
+    public ArrayList<Country> getNCountries()
+    {
+        ArrayList<Country> Countries = new ArrayList<>();
+        try
+        {
+            Statement statement = con.createStatement();
+
+            // String for SQL statement
+            String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country ORDER BY Population DESC LIMIT 20";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            Country country;
+
+            while (result.next())
+            {
+                country = new Country();
+                country.Code = result.getString("Code");
+                country.Name = result.getString("Name");
+                country.Continent = result.getString("Continent");
+                country.Region = result.getString("Region");
+                country.Population = result.getInt("Population");
+
+                Countries.add(country);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Country details");
+            return null;
+        }
+        return Countries;
+    }
+
+    /**
+     * Displays all the countries in a continent sorted by largest population to the smallest population
+     * @return ArrayList<Country>
+     */
+    public ArrayList<Country> getNCountriesInContinent()
+    {
+        ArrayList<Country> Countries = new ArrayList<>();
+        try
+        {
+            Statement statement = con.createStatement();
+
+            // String for SQL statement
+            String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country WHERE Continent = 'Europe' ORDER BY Population DESC LIMIT 10";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            Country country;
+
+            while (result.next())
+            {
+                country = new Country();
+                country.Code = result.getString("Code");
+                country.Name = result.getString("Name");
+                country.Continent = result.getString("Continent");
+                country.Region = result.getString("Region");
+                country.Population = result.getInt("Population");
+
+                Countries.add(country);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Country details");
+            return null;
+        }
+        return Countries;
+    }
+
+    /**
+     * Displays all the countries in a region sorted by largest population to the smallest population
+     * @return ArrayList<Country>
+     */
+    public ArrayList<Country> getNCountriesInRegion()
+    {
+        ArrayList<Country> Countries = new ArrayList<>();
+        try
+        {
+            Statement statement = con.createStatement();
+
+            // String for SQL statement
+            String strSelect = "SELECT Code, Name, Continent, Region, Population FROM country WHERE Region = 'British Islands' ORDER BY Population DESC LIMIT 1";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
