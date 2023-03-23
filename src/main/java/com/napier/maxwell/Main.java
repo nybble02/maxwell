@@ -91,6 +91,8 @@ public class Main
      */
     public ArrayList<City> getCitiesInWorld()
     {
+        System.out.println("Getting all the cities in the world...");
+
         ArrayList<City> citiesInWorld = new ArrayList<>();
         try
         {
@@ -136,6 +138,7 @@ public class Main
      */
     public ArrayList<City> getCitiesInContinent(String continent)
     {
+        System.out.println("Getting all the cities in "+ continent + "...");
         ArrayList<City> citiesInContinent= new ArrayList<>();
 
         try
@@ -182,6 +185,8 @@ public class Main
      */
     public ArrayList<City> getCitiesInRegion(String region)
     {
+        System.out.println("Getting all the cities in " + region + "...");
+
         ArrayList citiesInRegion =  new ArrayList<>();
 
         try
@@ -226,6 +231,8 @@ public class Main
      */
     public ArrayList<City> getCitiesInCountry(String country)
     {
+        System.out.println("Getting all the cities in a " + country + "...");
+
         ArrayList citiesInCountry =  new ArrayList<>();
 
         try
@@ -271,6 +278,8 @@ public class Main
     public ArrayList<City> getCitiesInDistrict(String district)
     {
         ArrayList<City> citiesInDistrict =  new ArrayList<>();
+        System.out.println("Getting all the cities in a " + district +"...");
+
 
         try
         {
@@ -315,6 +324,8 @@ public class Main
 
     public ArrayList<City> getNCities(int count)
     {
+        System.out.println("Getting top " + count + " cities in the world...");
+
         ArrayList<City> cityList = new ArrayList<>();
 
         try
@@ -359,6 +370,8 @@ public class Main
      */
     public ArrayList<City> getNCitiesInContinent(String continent ,int count)
     {
+        System.out.println("Getting top " + count + " cities in a "+ continent + "...");
+
         ArrayList<City> cityList = new ArrayList<>();
 
         try
@@ -402,6 +415,8 @@ public class Main
      */
     public ArrayList<City> getNCitiesInRegion(String region ,int count)
     {
+        System.out.println("Getting top " + count + " cities in a "+ region + "...");
+
         ArrayList<City> cityList = new ArrayList<>();
 
         try
@@ -445,6 +460,8 @@ public class Main
      */
     public ArrayList<City> getNCitiesInCountry(String country ,int count)
     {
+        System.out.println("Getting top " + count + " cities in a "+ country + "...");
+
         ArrayList<City> cityList = new ArrayList<>();
 
         try
@@ -488,6 +505,8 @@ public class Main
      */
     public ArrayList<City> getNCitiesInDistrict(String district ,int count)
     {
+        System.out.println("Getting top " + count + " cities in a "+ district + "...");
+
         ArrayList<City> cityList = new ArrayList<>();
 
         try
@@ -520,7 +539,6 @@ public class Main
             System.out.println("Failed to get City details");
             return null;
         }
-
     }
 
     /**
@@ -529,15 +547,20 @@ public class Main
      */
     public void displayCity(ArrayList<City> cities)
     {
-        String leftAlignFormat = "| %-40s | %-40s | %-40s | %-21s |%n";
-        System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
-        System.out.format("| City                                     | Country                                  | District                                 | Population            |%n");
-        System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
-
-        for (City city: cities)
+        if (cities == null)
         {
-            System.out.format(leftAlignFormat, city.Name, city.CountryCode, city.District, city.Population);
+            System.out.println("No Cities");
+        }
+        else {
+            String leftAlignFormat = "| %-40s | %-40s | %-40s | %-21s |%n";
             System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
+            System.out.format("| City                                     | Country                                  | District                                 | Population            |%n");
+            System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
+
+            for (City city : cities) {
+                System.out.format(leftAlignFormat, city.Name, city.CountryCode, city.District, city.Population);
+                System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
+            }
         }
 
     }
