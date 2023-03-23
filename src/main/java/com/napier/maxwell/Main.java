@@ -125,6 +125,7 @@ public class Main
      */
     public ArrayList<Country> getCountries()
     {
+        System.out.println("Getting countries from world sorted by largest population to the smallest population.....");
         ArrayList<Country> Countries = new ArrayList<>();
         try
         {
@@ -166,6 +167,7 @@ public class Main
      */
     public ArrayList<Country> getCountriesInContinent(String continent)
     {
+        System.out.println("Getting countries in a set continent sorted by largest population to the smallest population.....");
         ArrayList<Country> Countries = new ArrayList<>();
         try
         {
@@ -207,6 +209,7 @@ public class Main
      */
     public ArrayList<Country> getCountriesInRegion(String region)
     {
+        System.out.println("Getting countries in a set region sorted by largest population to the smallest population.....");
         ArrayList<Country> Countries = new ArrayList<>();
         try
         {
@@ -248,6 +251,7 @@ public class Main
      */
     public ArrayList<Country> getNCountries(int N)
     {
+        System.out.println("Getting top "+N+" populated countries in the world.....");
         ArrayList<Country> Countries = new ArrayList<>();
         try
         {
@@ -289,6 +293,7 @@ public class Main
      */
     public ArrayList<Country> getNCountriesInContinent(int N, String continent)
     {
+        System.out.println("Getting top "+N+" populated countries in a set continent.....");
         ArrayList<Country> Countries = new ArrayList<>();
         try
         {
@@ -330,6 +335,7 @@ public class Main
      */
     public ArrayList<Country> getNCountriesInRegion(int N, String region)
     {
+        System.out.println("Getting top "+N+" populated countries in a set region.....");
         ArrayList<Country> Countries = new ArrayList<>();
         try
         {
@@ -371,16 +377,23 @@ public class Main
      */
     public void displayCountries(ArrayList<Country> countries)
     {
-        //format table for countries
-        String leftAlignFormat = "| %-5s | %-44s | %-18s | %-28s | %-12s | %-34s |%n";
-        System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+------------------------------------+%n");
-        System.out.format("| Code  | Name                                         | Continent          | Region                       | Population   | Capital                            |%n");
-        System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+------------------------------------+%n");
-
-        for (Country country: countries)
+        if (countries== null)
         {
-            System.out.format(leftAlignFormat, country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital);
+            System.out.println("No countries");
+            return;
+        }
+        else
+        {
+            //format table for countries
+            String leftAlignFormat = "| %-5s | %-44s | %-18s | %-28s | %-12s | %-34s |%n";
             System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+------------------------------------+%n");
+            System.out.format("| Code  | Name                                         | Continent          | Region                       | Population   | Capital                            |%n");
+            System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+------------------------------------+%n");
+
+            for (Country country : countries) {
+                System.out.format(leftAlignFormat, country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital);
+                System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+------------------------------------+%n");
+            }
         }
 
     }
