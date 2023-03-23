@@ -28,15 +28,25 @@ public class Main
         ArrayList<Country> Countries = new ArrayList<>();
 
         // Gets all the countries in the world sorted by largest population to the smallest population
-        //Countries = main.getCountries();
-        //Countries = main.getCountriesInContinent("Europe");
-        //Countries = main.getCountriesInRegion("British Islands");
-        //Countries = main.getNCountries(10);
+        Countries = main.getCountries();
+
+        // Gets all the countries in a set continent sorted by largest population to the smallest population
+        Countries = main.getCountriesInContinent("Europe");
+
+        // Gets all the countries in a set region sorted by largest population to the smallest population
+        Countries = main.getCountriesInRegion("British Islands");
+
+        // Gets the top N populated countries
+        Countries = main.getNCountries(10);
+
+        // Gets the top N populated countries in a set continent
         Countries = main.getNCountriesInContinent(10, "Europe");
-        //Countries = main.getNCountriesInRegion(1, "British Islands");
+
+        // Gets the top N populated countries in a set region
+        Countries = main.getNCountriesInRegion(1, "British Islands");
 
 
-        //Country countries = main.getCounties();
+        // Display Country Reports
         main.displayCountries(Countries);
 
         // Disconnect from database
@@ -126,8 +136,8 @@ public class Main
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
 
+            // return countries
             Country country;
-
             while (result.next())
             {
                 country = new Country();
@@ -151,7 +161,7 @@ public class Main
     }
 
     /**
-     * Displays all the countries in a continent sorted by largest population to the smallest population
+     * Gets all the countries in a set continent sorted by largest population to the smallest population
      * @return ArrayList<Country>
      */
     public ArrayList<Country> getCountriesInContinent(String continent)
@@ -167,8 +177,8 @@ public class Main
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
 
+            // return countries
             Country country;
-
             while (result.next())
             {
                 country = new Country();
@@ -192,7 +202,7 @@ public class Main
     }
 
     /**
-     * Displays all the countries in a region sorted by largest population to the smallest population
+     * Gets all the countries in a set region sorted by largest population to the smallest population
      * @return ArrayList<Country>
      */
     public ArrayList<Country> getCountriesInRegion(String region)
@@ -208,8 +218,8 @@ public class Main
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
 
+            // return countries
             Country country;
-
             while (result.next())
             {
                 country = new Country();
@@ -233,7 +243,7 @@ public class Main
     }
 
     /**
-     * Gets all the countries in the world sorted by largest population to the smallest population
+     * Gets the top N populated countries in the world
      * @return ArrayList<Country>
      */
     public ArrayList<Country> getNCountries(int N)
@@ -249,8 +259,8 @@ public class Main
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
 
+            // return countries
             Country country;
-
             while (result.next())
             {
                 country = new Country();
@@ -274,7 +284,7 @@ public class Main
     }
 
     /**
-     * Displays all the countries in a continent sorted by largest population to the smallest population
+     * Gets the top N populated countries in a set continent
      * @return ArrayList<Country>
      */
     public ArrayList<Country> getNCountriesInContinent(int N, String continent)
@@ -290,8 +300,8 @@ public class Main
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
 
+            // return countries
             Country country;
-
             while (result.next())
             {
                 country = new Country();
@@ -315,7 +325,7 @@ public class Main
     }
 
     /**
-     * Displays all the countries in a region sorted by largest population to the smallest population
+     * Gets the top N populated countries in a set region
      * @return ArrayList<Country>
      */
     public ArrayList<Country> getNCountriesInRegion(int N, String region)
@@ -331,8 +341,8 @@ public class Main
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
 
+            // return countries
             Country country;
-
             while (result.next())
             {
                 country = new Country();
@@ -356,11 +366,12 @@ public class Main
     }
 
     /**
-     * Displays all the countries in the world sorted by largest population to the smallest population
+     * Displays Country Report
      * @param countries
      */
     public void displayCountries(ArrayList<Country> countries)
     {
+        //format table for countries
         String leftAlignFormat = "| %-5s | %-44s | %-18s | %-28s | %-12s | %-34s |%n";
         System.out.format("+-------+----------------------------------------------+--------------------+------------------------------+--------------+------------------------------------+%n");
         System.out.format("| Code  | Name                                         | Continent          | Region                       | Population   | Capital                            |%n");
