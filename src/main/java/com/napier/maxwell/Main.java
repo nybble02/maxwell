@@ -878,6 +878,7 @@ public class Main
                 con = DriverManager.getConnection("jdbc:mysql://" + location
                                 + "/world?allowPublicKeyRetrieval=true&useSSL=false",
                                 "root", "example");
+                //buggy part
                 System.out.println("Successfully connected");
                 break;
             }
