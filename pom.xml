@@ -35,7 +35,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <finalName>seMethods</finalName>
+                    <finalName>maxwell</finalName>
                     <archive>
                         <manifest>
                             <mainClass>com.napier.maxwell.Main</mainClass>
