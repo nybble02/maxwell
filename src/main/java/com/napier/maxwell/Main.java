@@ -15,8 +15,14 @@ public class Main
         // Create new Application
         Main main = new Main();
 
+        if(args.length < 1){
+            main.connect("localhost:33060", 30000);
+        }else{
+            main.connect(args[0], Integer.parseInt(args[1]));
+        }
+
         // Connect to database
-        main.connect();
+        //main.connect();
 
         // List that contains cities
         ArrayList<City> Cities = new ArrayList<>();
@@ -847,7 +853,7 @@ public class Main
     /**
      * Connect to MySQL database
      */
-    public void connect()
+    public void connect(String location, int delay)
     {
         try
         {
@@ -869,7 +875,9 @@ public class Main
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://" + location
+                                + "/employees?allowPublicKeyRetrieval=true&useSSL=false",
+                                "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
