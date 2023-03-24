@@ -17,10 +17,14 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: mvn package
+      - name: Run docker compose
+        run: docker-compose up --abort-on-container-exit
       - name: Unit Tests
         run: mvn -Dtest=com.napier.sem.MaxwellTesting test
       - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
           docker-compose up --abort-on-container-exit
-        # testttt
+        
+         
+                
