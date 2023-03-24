@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  *  This is where all the unit tests are stored:
  */
-class MyTest
+class MaxwellUnitTests
 {
     /**
      * Initialising main
