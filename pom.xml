@@ -6,7 +6,7 @@
 
     <groupId>com.napier.maxwell</groupId>
     <artifactId>maxwell</artifactId>
-    <version>0.1.0.3</version>
+    <version>0.1.0.4</version>
 
     <properties>
         <maven.compiler.source>10</maven.compiler.source>
