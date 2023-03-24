@@ -46,10 +46,10 @@ public class Main
         //Cities = main.getNCitiesInRegion("Eastern Europe", 5);
 
         // Gets the count of populated cities in a Country
-        //Cities = main.getNCitiesInCountry("Japan", 10);
+        Cities = main.getNCitiesInCountry("Japan", 10);
 
         //Gets the count of populated cities in a District
-        Cities = main.getNCitiesInDistrict("Scotland", 3);
+        //Cities = main.getNCitiesInDistrict("Scotland", 3);
 
 
         // Display city
