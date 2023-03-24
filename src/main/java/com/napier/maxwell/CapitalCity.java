@@ -1,6 +1,6 @@
 package com.napier.maxwell;
 
-public class CapitalCities {
+public class CapitalCity {
 
     /**
      * City Name

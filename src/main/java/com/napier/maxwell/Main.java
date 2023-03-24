@@ -1,6 +1,7 @@
 package com.napier.maxwell;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public class Main
@@ -24,12 +25,11 @@ public class Main
         main.displayCity(city);
 
         // Gets a capital city
-        CapitalCities CC = main.getCapitals();
+      //  CapitalCity CC = main.getCapitals();
+        ArrayList<CapitalCity> CC = new ArrayList<>();
+        CC = main.getCapitals();
 
-        // Display city
-        main.displayCapitals(CC);
-
-
+        main.displayCC(CC);
 
 
         // Disconnect from database
@@ -103,22 +103,45 @@ public class Main
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public CapitalCities getCapitals()
+    /**
+     * Displays the Capital Cities Report
+     * @param CCREPORT ArrayList
+     */
+    public void displayCC(ArrayList<CapitalCity> CCREPORT)
     {
+        if (CCREPORT == null)
+        {
+            System.out.println("No Capital Cities");
+        }
+        else {
+            String leftAlignFormat = "| %-40s | %-40s | %-40s |%n";
+            System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
+            System.out.format("| Capital Cities                                     | Country                                       | Population            |%n");
+            System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
+
+            for (CapitalCity CC : CCREPORT) {
+                System.out.format(leftAlignFormat, CC.Name, CC.Country, CC.Population);
+                System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+-----------------------+%n");
+            }
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public  ArrayList<CapitalCity> getCapitals()
+    {
+        ArrayList<CapitalCity> CapitalCities = new ArrayList<>();
         try
         {
             System.out.println("Getting capital cities.....");
@@ -132,20 +155,17 @@ public class Main
             ResultSet result = statement.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
-            if (result.next())
+            while (result.next())
             {
-                CapitalCities CC = new CapitalCities();
+                CapitalCity CC = new CapitalCity();
 
                 CC.Name = result.getString("Name");
                 CC.Country = result.getString("Country");
                 CC.Population = result.getInt("Population");
 
-                return CC;
+                CapitalCities.add(CC);
             }
-            else
-            {
-                return null;
-            }
+
         }
         catch (Exception e)
         {
@@ -153,6 +173,7 @@ public class Main
             System.out.println("Failed to get Capital Cities details");
             return null;
         }
+        return CapitalCities;
     }
 
     /**
@@ -160,7 +181,7 @@ public class Main
      * @param CC
      */
 
-    public void displayCapitals(CapitalCities CC)
+    public void displayCapitals(CapitalCity CC)
     {
 
         if (CC != null)
