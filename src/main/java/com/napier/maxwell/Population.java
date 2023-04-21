@@ -27,12 +27,12 @@ public class Population {
     public long RuralPopulation;
 
     /**
-     * Population cityPopulation
+     * Population CityPopulationPercentage
      */
     public double CityPopulationPercentage;
 
     /**
-     * Population ruralPopulation
+     * Population RuralPopulationPercentage
      */
     public double RuralPopulationPercentage;
 
