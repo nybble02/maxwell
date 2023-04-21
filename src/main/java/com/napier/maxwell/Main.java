@@ -53,31 +53,31 @@ public class Main
         //Cities = main.getNCitiesInRegion("Eastern Europe", 5);
 
         // Gets the count of populated cities in a Country
-        Cities = main.getNCitiesInCountry("Japan", 10);
+        //Cities = main.getNCitiesInCountry("Japan", 10);
 
         //Gets the count of populated cities in a District
         //Cities = main.getNCitiesInDistrict("Scotland", 3);
 
         // list that contains countries
-        ArrayList<Country> Countries = new ArrayList<>();
+        //ArrayList<Country> Countries = new ArrayList<>();
 
         // Gets all the countries in the world sorted by largest population to the smallest population
-        Countries = main.getCountries();
+        //Countries = main.getCountries();
 
         // Gets all the countries in a set continent sorted by largest population to the smallest population
-        Countries = main.getCountriesInContinent("Europe");
+        //Countries = main.getCountriesInContinent("Europe");
 
         // Gets all the countries in a set region sorted by largest population to the smallest population
-        Countries = main.getCountriesInRegion("British Islands");
+        // Countries = main.getCountriesInRegion("British Islands");
 
         // Gets the top N populated countries
-        Countries = main.getNCountries(10);
+        // Countries = main.getNCountries(10);
 
         // Gets the top N populated countries in a set continent
-        Countries = main.getNCountriesInContinent(10, "Europe");
+        //Countries = main.getNCountriesInContinent(10, "Europe");
 
         // Gets the top N populated countries in a set region
-        Countries = main.getNCountriesInRegion(1, "British Islands");
+        //Countries = main.getNCountriesInRegion(1, "British Islands");
 
         // Gets all the Capital Cities in the world
         //CaptialCities = main.getCapitalCitiesInWorld();
@@ -92,10 +92,16 @@ public class Main
         //CaptialCities = main.getNCapitalCities(10);
 
         // The top N populated capital cities in a continent where N is provided by the user.
-        CaptialCities = main.getNCapitalCitiesInContinent("Africa", 10);
+        //CaptialCities = main.getNCapitalCitiesInContinent("Africa", 10);
 
         //All the capital cities in a region organised by largest to smallest.
-        CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
+        //CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
+
+        // list that contains population
+        ArrayList<Population> Population = new ArrayList<>();
+        //Population = main.getPopulationContinent();
+        //Population = main.getPopulationRegion();
+        Population = main.getPopulationCountry();
 
 
 
@@ -106,6 +112,10 @@ public class Main
         //main.displayCapitalCity(CaptialCities);
 
         // Display Country Reports
+        //main.displayCity(CaptialCities);
+
+        // Display Population Reports
+        main.displayPopulation(Population);
         //main.displayCapitalCity(CaptialCities);
 
         // Disconnect from database
@@ -844,6 +854,7 @@ public class Main
         return Countries;
     }
 
+
     /**
      * Displays Country Report
      * @param countries
@@ -1145,6 +1156,119 @@ public class Main
 
     }
 
+    public ArrayList<Population> getPopulationContinent()
+    {
+        ArrayList<Population> population = new ArrayList<>();
+
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT SUM(countryPop.CityPopulation) AS 'cityPopulation', ROUND((SUM(countryPop.CityPopulation)/SUM(countryPop.Population)*100), 2) AS 'cityPopulation%', SUM(countryPop.Population) AS 'Population', (SUM(countryPop.Population) - SUM(countryPop.CityPopulation)) AS 'RuralPopulation', ROUND(((SUM(countryPop.Population) - SUM(countryPop.CityPopulation))/(SUM(countryPop.Population)))*100, 2) AS 'RuralPopulation%', countryPop.Continent FROM (SELECT SUM(city.Population) AS 'CityPopulation', country.Population AS 'Population', city.CountryCode, country.Continent FROM city INNER JOIN country ON city.CountryCode = country.Code GROUP BY city.CountryCode) AS countryPop GROUP BY countryPop.Continent";
+
+            ResultSet result = statement.executeQuery(strSelect);
+
+            Population areaPopulation;
+
+            while (result.next())
+            {
+                areaPopulation = new Population();
+                areaPopulation.Area = result.getString("Continent");
+                areaPopulation.AreaPopulation = result.getLong("Population");
+                areaPopulation.CityPopulation = result.getLong("CityPopulation");
+                areaPopulation.RuralPopulation = result.getLong("RuralPopulation");
+                areaPopulation.CityPopulationPercentage = result.getDouble("CityPopulation%");
+                areaPopulation.RuralPopulationPercentage = result.getDouble("RuralPopulation%");
+
+                population.add(areaPopulation);
+            }
+            return population;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get continent population details");
+            return null;
+        }
+
+    }
+
+    public ArrayList<Population> getPopulationRegion()
+    {
+        ArrayList<Population> population = new ArrayList<>();
+
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT SUM(countryPop.CityPopulation) AS 'cityPopulation', ROUND((SUM(countryPop.CityPopulation)/SUM(countryPop.Population)*100), 2) AS 'cityPopulation%', SUM(countryPop.Population) AS 'Population', (SUM(countryPop.Population) - SUM(countryPop.CityPopulation)) AS 'RuralPopulation', ROUND(((SUM(countryPop.Population) - SUM(countryPop.CityPopulation))/(SUM(countryPop.Population)))*100, 2) AS 'RuralPopulation%', countryPop.Region FROM (SELECT SUM(city.Population) AS 'CityPopulation', country.Population AS 'Population', city.CountryCode, country.Region FROM city INNER JOIN country ON city.CountryCode = country.Code GROUP BY city.CountryCode) AS countryPop GROUP BY countryPop.Region";
+
+            ResultSet result = statement.executeQuery(strSelect);
+
+            Population areaPopulation;
+
+            while (result.next())
+            {
+                areaPopulation = new Population();
+                areaPopulation.Area = result.getString("Region");
+                areaPopulation.AreaPopulation = result.getLong("Population");
+                areaPopulation.CityPopulation = result.getLong("CityPopulation");
+                areaPopulation.RuralPopulation = result.getLong("RuralPopulation");
+                areaPopulation.CityPopulationPercentage = result.getDouble("CityPopulation%");
+                areaPopulation.RuralPopulationPercentage = result.getDouble("RuralPopulation%");
+
+                population.add(areaPopulation);
+            }
+            return population;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get continent population details");
+            return null;
+        }
+
+    }
+
+    public ArrayList<Population> getPopulationCountry()
+    {
+        ArrayList<Population> population = new ArrayList<>();
+
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT SUM(countryPop.CityPopulation) AS 'cityPopulation', ROUND((SUM(countryPop.CityPopulation)/SUM(countryPop.Population)*100), 2) AS 'cityPopulation%', SUM(countryPop.Population) AS 'Population', (SUM(countryPop.Population) - SUM(countryPop.CityPopulation)) AS 'RuralPopulation', ROUND(((SUM(countryPop.Population) - SUM(countryPop.CityPopulation))/(SUM(countryPop.Population)))*100, 2) AS 'RuralPopulation%', countryPop.Name FROM (SELECT SUM(city.Population) AS 'CityPopulation', country.Population AS 'Population', city.CountryCode, country.Name FROM city INNER JOIN country ON city.CountryCode = country.Code GROUP BY city.CountryCode) AS countryPop GROUP BY countryPop.Name";
+
+            ResultSet result = statement.executeQuery(strSelect);
+
+            Population areaPopulation;
+
+            while (result.next())
+            {
+                areaPopulation = new Population();
+                areaPopulation.Area = result.getString("Name");
+                areaPopulation.AreaPopulation = result.getLong("Population");
+                areaPopulation.CityPopulation = result.getLong("CityPopulation");
+                areaPopulation.RuralPopulation = result.getLong("RuralPopulation");
+                areaPopulation.CityPopulationPercentage = result.getDouble("CityPopulation%");
+                areaPopulation.RuralPopulationPercentage = result.getDouble("RuralPopulation%");
+
+                population.add(areaPopulation);
+            }
+            return population;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get continent population details");
+            return null;
+        }
+
+    }
 
     public void displayCapitalCity(ArrayList<City> capitalCities)
     {
@@ -1165,7 +1289,28 @@ public class Main
         }
 
     }
+    public void displayPopulation(ArrayList<Population> Population)
+    {
+        if (Population== null)
+        {
+            System.out.println("No countries");
+            return;
+        }
+        else
+        {
+            //format table for countries
+            String leftAlignFormat = "| %-58s | %-12s | %-15s | %-26s | %-16s | %-27s |%n";
+            System.out.format("+------------------------------------------------------------+--------------+-----------------+----------------------------+------------------+-----------------------------+%n");
+            System.out.format("| Continent/Region/Country                                   | Population   | City Population | City Population Percentage | Rural Population | Rural Population Percentage |%n");
+            System.out.format("+------------------------------------------------------------+--------------+-----------------+----------------------------+------------------+-----------------------------+%n");
 
+            for (Population population : Population) {
+                System.out.format(leftAlignFormat, population.Area, population.AreaPopulation, population.CityPopulation,  population.CityPopulationPercentage,  population.RuralPopulation, population.RuralPopulationPercentage);
+                System.out.format("+------------------------------------------------------------+--------------+-----------------+----------------------------+------------------+-----------------------------+%n");
+            }
+        }
+
+    }
 
 
     /**
@@ -1191,7 +1336,7 @@ public class Main
             try
             {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(10000);
                 // Connect to database
                 con = DriverManager.getConnection("jdbc:mysql://" + location
                                 + "/world?allowPublicKeyRetrieval=true&useSSL=false",
