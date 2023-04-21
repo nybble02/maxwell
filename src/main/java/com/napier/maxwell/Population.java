@@ -7,92 +7,33 @@ package com.napier.maxwell;
 public class Population {
 
     /**
-     * Population continent
+     * Population area
      */
-    public String continent;
+    public String Area;
 
     /**
-     * Population country
+     * Population AreaPopulation
      */
-    public String country;
+    public long AreaPopulation;
 
     /**
-     * Population region
+     * Population cityPopulation
      */
-    public String region;
+    public long CityPopulation;
 
     /**
-     * Population continentPopulation
+     * Population ruralPopulation
      */
-    public int continentPopulation;
+    public long RuralPopulation;
 
     /**
-     * Population countryPopulation
+     * Population cityPopulation
      */
-    public int countryPopulation;
+    public double CityPopulationPercentage;
 
     /**
-     * Population regionPopulation
+     * Population ruralPopulation
      */
-    public int regionPopulation;
+    public double RuralPopulationPercentage;
 
-    /**
-     * Population continentPopulationCity
-     */
-    public int continentPopulationCity;
-
-    /**
-     * Population countryPopulationCity
-     */
-    public int countryPopulationCity;
-
-    /**
-     * Population regionPopulationCity
-     */
-    public int regionPopulationCity;
-
-    /**
-     * Population continentPopulationCityPercentage
-     */
-    public int continentPopulationCityPercentage;
-
-    /**
-     * Population countryPopulationCityPercentage
-     */
-    public int countryPopulationCityPercentage;
-
-    /**
-     * Population regionPopulationCityPercentage
-     */
-    public int regionPopulationCityPercentage;
-
-    /**
-     * Population continentPopulationRural
-     */
-    public int continentPopulationRural;
-
-    /**
-     * Population countryPopulationRural
-     */
-    public int countryPopulationRural;
-
-    /**
-     * Population regionPopulationRural
-     */
-    public int regionPopulationRural;
-
-    /**
-     * Population continentPopulationRuralPercentage
-     */
-    public int continentPopulationRuralPercentage;
-
-    /**
-     * Population countryPopulationRuralPercentage
-     */
-    public int countryPopulationRuralPercentage;
-
-    /**
-     * Population regionPopulationRuralPercentage
-     */
-    public int regionPopulationRuralPercentage;
 }
