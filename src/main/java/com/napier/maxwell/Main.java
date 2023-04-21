@@ -95,7 +95,10 @@ public class Main
         CaptialCities = main.getNCapitalCitiesInContinent("Africa", 10);
 
         //All the capital cities in a region organised by largest to smallest.
-        CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
+        //CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
+
+        // list that contains countries
+        ArrayList<Country> Population = new ArrayList<>();
 
 
 
@@ -106,7 +109,10 @@ public class Main
         //main.displayCity(Cities);
 
         // Display Country Reports
-        main.displayCity(CaptialCities);
+        //main.displayCity(CaptialCities);
+
+        // Display Population Reports
+        //main.displayPopulation(Population);
 
         // Disconnect from database
         main.disconnect();
@@ -844,6 +850,7 @@ public class Main
         return Countries;
     }
 
+
     /**
      * Displays Country Report
      * @param countries
@@ -1145,7 +1152,43 @@ public class Main
 
     }
 
+    public ArrayList<Country> populationWorld()
+    {
+        System.out.println("Getting countries from world sorted by largest population to the smallest population.....");
+        ArrayList<Country> Population = new ArrayList<>();
+        try
+        {
+            Statement statement = con.createStatement();
 
+            // String for SQL statement
+            String strSelect = "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, city.Name FROM country  INNER JOIN city ON city.id = country.Capital ORDER BY Population DESC";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            // return countries
+            Country country;
+            while (result.next())
+            {
+                country = new Country();
+                country.Code = result.getString("country.Code");
+                country.Name = result.getString("country.Name");
+                country.Continent = result.getString("country.Continent");
+                country.Region = result.getString("country.Region");
+                country.Population = result.getInt("country.Population");
+                country.Capital = result.getString("city.Name");
+
+                Population.add(country);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Country details");
+            return null;
+        }
+        return Population;
+    }
 
 
 
