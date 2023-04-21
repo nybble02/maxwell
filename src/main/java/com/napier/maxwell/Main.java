@@ -100,13 +100,13 @@ public class Main
 
 
         // Display Country Reports
-        //main.displayCountries(Countries);
+        main.displayCapitalCity(CaptialCities);
 
         // Display Country Reports
-        //main.displayCity(Cities);
+        //main.displayCapitalCity(CaptialCities);
 
         // Display Country Reports
-        main.displayCity(CaptialCities);
+        //main.displayCapitalCity(CaptialCities);
 
         // Disconnect from database
         main.disconnect();
@@ -1146,6 +1146,25 @@ public class Main
     }
 
 
+    public void displayCapitalCity(ArrayList<City> capitalCities)
+    {
+        if (capitalCities == null)
+        {
+            System.out.println("No Cities");
+        }
+        else {
+            String leftAlignFormat = "| %-40s | %-40s | %-40s |%n";
+            System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+%n");
+            System.out.format("| City                                     | Country                                  | Population                               |%n");
+            System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+%n");
+
+            for (City city : capitalCities) {
+                System.out.format(leftAlignFormat, city.Name, city.CountryCode, city.Population);
+                System.out.format("+------------------------------------------+------------------------------------------+------------------------------------------+%n");
+            }
+        }
+
+    }
 
 
 
