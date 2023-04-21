@@ -16,7 +16,7 @@ public class Main
         Main main = new Main();
 
         if(args.length < 1){
-            main.connect("localhost:33060", 30000);
+            main.connect("localhost:3366", 30000);
         }else{
             main.connect(args[0], Integer.parseInt(args[1]));
         }
@@ -26,6 +26,7 @@ public class Main
 
         // List that contains cities
         ArrayList<City> Cities = new ArrayList<>();
+        ArrayList<City> CaptialCities = new ArrayList<>();
 
         // Gets all the cities in the world sorted by largest population to the smallest population
         //Cities = main.getCitiesInWorld();
@@ -57,10 +58,6 @@ public class Main
         //Gets the count of populated cities in a District
         //Cities = main.getNCitiesInDistrict("Scotland", 3);
 
-
-        // Display city
-        //main.displayCity(city);
-
         // list that contains countries
         ArrayList<Country> Countries = new ArrayList<>();
 
@@ -82,10 +79,34 @@ public class Main
         // Gets the top N populated countries in a set region
         Countries = main.getNCountriesInRegion(1, "British Islands");
 
+        // Gets all the Capital Cities in the world
+        //CaptialCities = main.getCapitalCitiesInWorld();
+
+        // Gets all the Capital Cities in the world
+        //CaptialCities = main.getCapitalCitiesInContinent("Africa");
+
+        // Gets all the Capital Cities in the world
+        //CaptialCities = main.getCapitalCitiesInContinent("British Islands");
+
+        // The top N populated capital cities in the world where N is provided by the user.
+        //CaptialCities = main.getNCapitalCities(10);
+
+        // The top N populated capital cities in a continent where N is provided by the user.
+        CaptialCities = main.getNCapitalCitiesInContinent("Africa", 10);
+
+        //All the capital cities in a region organised by largest to smallest.
+        CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
+
+
 
         // Display Country Reports
-        main.displayCountries(Countries);
-        main.displayCity(Cities);
+        //main.displayCountries(Countries);
+
+        // Display Country Reports
+        //main.displayCity(Cities);
+
+        // Display Country Reports
+        main.displayCity(CaptialCities);
 
         // Disconnect from database
         main.disconnect();
@@ -849,6 +870,284 @@ public class Main
         }
 
     }
+
+    /**
+     * Gets all the Capital Cities in the World
+     * @return A List of Cities in the World
+     */
+    public ArrayList<City> getCapitalCitiesInWorld()
+    {
+        System.out.println("Getting all the Capital Cities in the world...");
+
+        ArrayList<City> capitalCitiesInWorld = new ArrayList<>();
+        try
+        {
+            // Create a SQL statement
+            Statement statement = con.createStatement();
+
+            // String for SQL statement
+            //String strSelect = "SELECT city.ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.countryCode = country.Code ORDER BY city.Population DESC;";
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name as 'Country', District, city.Population FROM country INNER JOIN city ON city.id = country.Capital ORDER BY city.Population DESC;";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while(result.next())
+            {
+                city = new City();
+
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+
+                capitalCitiesInWorld.add(city);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Capital City details");
+            return null;
+        }
+
+        return capitalCitiesInWorld;
+    }
+
+    /**
+     * Gets all the Capital Cities in a continent
+     * @return A List of Cities in a continent
+     */
+    public ArrayList<City> getCapitalCitiesInContinent(String continent)
+    {
+        System.out.println("Getting all the Capital Cities in a continent...");
+
+        ArrayList<City> capitalCitiesInWorld = new ArrayList<>();
+        try
+        {
+            // Create a SQL statement
+            Statement statement = con.createStatement();
+
+            // String for SQL statement
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM country INNER JOIN city ON city.id = country.Capital WHERE country.Continent = " + "\'" + continent + "\'" + " ORDER BY city.Population DESC;";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while(result.next())
+            {
+                city = new City();
+
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+
+                capitalCitiesInWorld.add(city);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Capital City details");
+            return null;
+        }
+
+        return capitalCitiesInWorld;
+    }
+
+    /**
+     * Gets all the Capital Cities in a Region
+     * @param region
+     * @return
+     */
+    public ArrayList<City> getCapitalCitiesInRegion(String region)
+    {
+        System.out.println("Getting all the Capital Cities in a region...");
+
+        ArrayList<City> capitalCitiesInWorld = new ArrayList<>();
+        try
+        {
+            // Create a SQL statement
+            Statement statement = con.createStatement();
+
+            // String for SQL statement
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM country INNER JOIN city ON city.id = country.Capital WHERE country.Region = " + "\'" + region + "\'" + " ORDER BY city.Population DESC;";
+
+            // Execute SQL statement
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while(result.next())
+            {
+                city = new City();
+
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+
+                capitalCitiesInWorld.add(city);
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get Capital City details");
+            return null;
+        }
+
+        return capitalCitiesInWorld;
+    }
+
+    /**
+     * Gets top N populated capital cities in the world where N is provided by the user.
+     * @param count
+     * @return
+     */
+    public ArrayList<City> getNCapitalCities(int count)
+    {
+        System.out.println("Getting top " + count + " capital cities in the world...");
+
+        ArrayList<City> capitalCities = new ArrayList<>();
+
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name as 'Country', District, city.Population FROM country INNER JOIN city ON city.id = country.Capital ORDER BY city.Population DESC LIMIT " + count + ";";
+
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while (result.next())
+            {
+                city = new City();
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                capitalCities.add(city);
+            }
+            return capitalCities;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital City details");
+            return null;
+        }
+
+    }
+
+    /**
+     * Gets top N populated capital cities in a continent where N is provided by the user.
+     * @param continent
+     * @param count
+     * @return
+     */
+    public ArrayList<City> getNCapitalCitiesInContinent(String continent, int count)
+    {
+        System.out.println("Getting top " + count + " capital cities in the continent...");
+
+        ArrayList<City> capitalCities = new ArrayList<>();
+
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM country INNER JOIN city ON city.id = country.Capital WHERE country.Continent = " + "\'" + continent + "\'" + " ORDER BY city.Population DESC LIMIT " + count + ";";
+
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while (result.next())
+            {
+                city = new City();
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                capitalCities.add(city);
+            }
+            return capitalCities;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital City details");
+            return null;
+        }
+
+    }
+
+    /**
+     * Gets The top N populated capital cities in a region where N is provided by the user.
+     * @param region
+     * @param count
+     * @return List of capital Cities in a region
+     */
+    public ArrayList<City> getNCapitalCitiesInRegion(String region, int count)
+    {
+        System.out.println("Getting top " + count + " capital cities in the region...");
+
+        ArrayList<City> capitalCities = new ArrayList<>();
+
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM country INNER JOIN city ON city.id = country.Capital WHERE country.Region = " + "\'" + region + "\'" + " ORDER BY city.Population DESC LIMIT " + count + ";";
+
+            ResultSet result = statement.executeQuery(strSelect);
+
+            City city;
+
+            while (result.next())
+            {
+                city = new City();
+                city.ID = result.getInt("ID");
+                city.Name = result.getString("City");
+                city.CountryCode = result.getString("Country");
+                city.District = result.getString("District");
+                city.Population = result.getInt("Population");
+
+                capitalCities.add(city);
+            }
+            return capitalCities;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital City details");
+            return null;
+        }
+
+    }
+
+
+
+
 
     /**
      * Connect to MySQL database
