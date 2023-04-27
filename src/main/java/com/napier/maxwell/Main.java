@@ -26,7 +26,11 @@ public class Main
 
         // List that contains cities
         ArrayList<City> Cities = new ArrayList<>();
+        // List that contains capital cities
         ArrayList<City> CaptialCities = new ArrayList<>();
+        // list that contains countries
+        ArrayList<Country> Countries = new ArrayList<>();
+
 
         // Gets all the cities in the world sorted by largest population to the smallest population
         //Cities = main.getCitiesInWorld();
@@ -58,8 +62,7 @@ public class Main
         //Gets the count of populated cities in a District
         //Cities = main.getNCitiesInDistrict("Scotland", 3);
 
-        // list that contains countries
-        ArrayList<Country> Countries = new ArrayList<>();
+
 
         // Gets all the countries in the world sorted by largest population to the smallest population
         //Countries = main.getCountries();
@@ -68,10 +71,10 @@ public class Main
         //Countries = main.getCountriesInContinent("Europe");
 
         // Gets all the countries in a set region sorted by largest population to the smallest population
-        // Countries = main.getCountriesInRegion("British Islands");
+        //Countries = main.getCountriesInRegion("British Islands");
 
         // Gets the top N populated countries
-        // Countries = main.getNCountries(10);
+        Countries = main.getNCountries(10);
 
         // Gets the top N populated countries in a set continent
         //Countries = main.getNCountriesInContinent(10, "Europe");
@@ -86,14 +89,13 @@ public class Main
         //CaptialCities = main.getCapitalCitiesInContinent("Africa");
 
         // Gets all the Capital Cities in the world
-        //CaptialCities = main.getCapitalCitiesInContinent("British Islands");
+        //CaptialCities = main.getCapitalCitiesInRegion("British Islands");
 
         // The top N populated capital cities in the world where N is provided by the user.
         //CaptialCities = main.getNCapitalCities(10);
 
         // The top N populated capital cities in a continent where N is provided by the user.
         //CaptialCities = main.getNCapitalCitiesInContinent("Africa", 10);
-       // CaptialCities = main.getNCapitalCitiesInContinent("Africa", 10);
 
         //All the capital cities in a region organised by largest to smallest.
         //CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
@@ -102,11 +104,11 @@ public class Main
         ArrayList<Population> Population = new ArrayList<>();
 
         //population of people who live in a continent and the number/percentage of people who live in and outside cities
-        //Population = main.getPopulationContinent();
+        Population = main.getPopulationContinent();
 
         //population of people who live in a region and the number/percentage of people who live in and outside cities
         //Population = main.getPopulationRegion();
-        Population = main.getPopulationCountry();
+        //Population = main.getPopulationCountry();
         //CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
 
 
@@ -119,39 +121,38 @@ public class Main
         Language = main.getLanguage();
 
         // Display Country Reports
-        //main.displayCapitalCity(CaptialCities);
+        main.displayCountries(Countries);
 
-        // Display Country Reports
-        //main.displayCapitalCity(CaptialCities);
+        // Display Capital City Reports
+       //main.displayCapitalCity(CaptialCities);
 
-        // Display Country Reports
-        //main.displayCity(CaptialCities);
+        // Display City Reports
+        //main.displayCity(Cities);
 
         // Display Population Reports
-        //main.displayPopulation(Population);
-        //main.displayCapitalCity(CaptialCities);
+        main.displayPopulation(Population);
 
         // Display population of the world
-        main.populationOfWorld();
+        //main.populationOfWorld();
 
         // Display population of a continent
-        main.populationOfContinent("Europe");
+       // main.populationOfContinent("Europe");
 
         // Display population of a region
-        main.populationOfRegion("Middle East");
+       // main.populationOfRegion("Middle East");
 
         // Display population of a country
-        main.populationOfCountry("South Africa");
+        //main.populationOfCountry("South Africa");
 
         // Display population of a district
-        main.populationOfDistrict("Buenos Aires");
+       // main.populationOfDistrict("Scotland");
 
         // Display population of a city
-        main.populationOfCity("Roma");
+        //main.populationOfCity("Roma");
 
 
         // Display Language Report
-        main.displayLanguage(Language);
+       // main.displayLanguage(Language);
 
         // Disconnect from database
         main.disconnect();
@@ -172,7 +173,7 @@ public class Main
             Statement statement = con.createStatement();
 
             // String for SQL statement
-            String strSelect = "SELECT city.ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.countryCode = country.Code ORDER BY city.Population DESC;";
+            String strSelect = "SELECT city.ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.countryCode = country.Code ORDER BY city.Population DESC LIMIT 100;";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
@@ -357,7 +358,7 @@ public class Main
         {
             // Create a SQL statement
             Statement statement = con.createStatement();
-            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.CountryCode = country.Code WHERE country.Name = " + "\'" + district + "\'" + " ORDER BY city.Population DESC;";
+            String strSelect = "SELECT ID, city.Name AS 'City', country.Name AS 'Country', District, city.Population FROM city INNER JOIN country ON city.CountryCode = country.Code WHERE city.District = " + "\'" + district + "\'" + " ORDER BY city.Population DESC;";
 
             // Execute SQL statement
             ResultSet result = statement.executeQuery(strSelect);
