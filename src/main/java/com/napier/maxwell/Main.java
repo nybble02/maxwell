@@ -21,140 +21,125 @@ public class Main
             main.connect(args[0], Integer.parseInt(args[1]));
         }
 
-        // Connect to database
-        //main.connect();
-
         // List that contains cities
         ArrayList<City> Cities = new ArrayList<>();
+
         // List that contains capital cities
         ArrayList<City> CaptialCities = new ArrayList<>();
+
         // list that contains countries
         ArrayList<Country> Countries = new ArrayList<>();
-
-
-        // Gets all the cities in the world sorted by largest population to the smallest population
-        //Cities = main.getCitiesInWorld();
-
-        // Gets the cities that are in a continent
-        //Cities = main.getCitiesInContinent("Africa");
-
-        // Gets the cities in a Region
-        //Cities = main.getCitiesInRegion("Southern Europe");
-
-        //Gets the cities in a Country
-        //Cities = main.getCitiesInCountry("South Africa");
-
-        //Gets the cities in a District
-        //Cities = main.getCitiesInDistrict("Scotland");
-
-        // Get the count of populated cities in the world
-        //Cities = main.getNCities(3);
-
-        // Gets the count of populated cities in a continent
-        //Cities = main.getNCitiesInContinent("Africa", 3);
-
-        // Gets the count of populated cities in a Region
-        //Cities = main.getNCitiesInRegion("Eastern Europe", 5);
-
-        // Gets the count of populated cities in a Country
-        //Cities = main.getNCitiesInCountry("Japan", 10);
-
-        //Gets the count of populated cities in a District
-        //Cities = main.getNCitiesInDistrict("Scotland", 3);
-
-
-
-        // Gets all the countries in the world sorted by largest population to the smallest population
-        //Countries = main.getCountries();
-
-        // Gets all the countries in a set continent sorted by largest population to the smallest population
-        //Countries = main.getCountriesInContinent("Europe");
-
-        // Gets all the countries in a set region sorted by largest population to the smallest population
-        //Countries = main.getCountriesInRegion("British Islands");
-
-        // Gets the top N populated countries
-        Countries = main.getNCountries(10);
-
-        // Gets the top N populated countries in a set continent
-        //Countries = main.getNCountriesInContinent(10, "Europe");
-
-        // Gets the top N populated countries in a set region
-        //Countries = main.getNCountriesInRegion(1, "British Islands");
-
-        // Gets all the Capital Cities in the world
-        //CaptialCities = main.getCapitalCitiesInWorld();
-
-        // Gets all the Capital Cities in the world
-        //CaptialCities = main.getCapitalCitiesInContinent("Africa");
-
-        // Gets all the Capital Cities in the world
-        //CaptialCities = main.getCapitalCitiesInRegion("British Islands");
-
-        // The top N populated capital cities in the world where N is provided by the user.
-        //CaptialCities = main.getNCapitalCities(10);
-
-        // The top N populated capital cities in a continent where N is provided by the user.
-        //CaptialCities = main.getNCapitalCitiesInContinent("Africa", 10);
-
-        //All the capital cities in a region organised by largest to smallest.
-        //CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
 
         // list that contains population
         ArrayList<Population> Population = new ArrayList<>();
 
-        //population of people who live in a continent and the number/percentage of people who live in and outside cities
-        Population = main.getPopulationContinent();
-
-        //population of people who live in a region and the number/percentage of people who live in and outside cities
-        //Population = main.getPopulationRegion();
-        //Population = main.getPopulationCountry();
-        //CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
-
-
-        //population of people who live in a country and the number/percentage of people who live in and outside cities
-        //Population = main.getPopulationCountry();
-
         // list that contains language information
         ArrayList<Language> Language = new ArrayList<>();
-        // Specified languages people speak listed most spoken to least spoken
-        Language = main.getLanguage();
 
-        // Display Country Reports
+
+        // Gets all the cities in the world sorted by largest population to the smallest population
+        Cities = main.getCitiesInWorld();
+        main.displayCity(Cities);
+        // Gets the cities that are in a continent
+        Cities = main.getCitiesInContinent("Africa");
+        main.displayCity(Cities);
+
+        // Gets the cities in a Region
+        Cities = main.getCitiesInRegion("Southern Europe");
+        main.displayCity(Cities);
+
+        //Gets the cities in a Country
+        Cities = main.getCitiesInCountry("South Africa");
+        main.displayCity(Cities);
+
+        //Gets the cities in a District
+        Cities = main.getCitiesInDistrict("Scotland");
+        main.displayCity(Cities);
+
+        // Get the count of populated cities in the world
+        Cities = main.getNCities(3);
+        main.displayCity(Cities);
+
+        // Gets the count of populated cities in a continent
+        Cities = main.getNCitiesInContinent("Africa", 3);
+        main.displayCity(Cities);
+
+        // Gets the count of populated cities in a Region
+        Cities = main.getNCitiesInRegion("Eastern Europe", 5);
+        main.displayCity(Cities);
+
+        // Gets the count of populated cities in a Country
+        Cities = main.getNCitiesInCountry("Japan", 10);
+        main.displayCity(Cities);
+
+        //Gets the count of populated cities in a District
+        Cities = main.getNCitiesInDistrict("Scotland", 3);
+        main.displayCity(Cities);
+
+        // Gets all the countries in the world sorted by largest population to the smallest population
+        Countries = main.getCountries();
         main.displayCountries(Countries);
 
-        // Display Capital City Reports
-       //main.displayCapitalCity(CaptialCities);
+        // Gets all the countries in a set continent sorted by largest population to the smallest population
+        Countries = main.getCountriesInContinent("Europe");
+        main.displayCountries(Countries);
 
-        // Display City Reports
-        //main.displayCity(Cities);
+        // Gets all the countries in a set region sorted by largest population to the smallest population
+        Countries = main.getCountriesInRegion("British Islands");
+        main.displayCountries(Countries);
 
-        // Display Population Reports
+        // Gets the top N populated countries
+        Countries = main.getNCountries(10);
+        main.displayCountries(Countries);
+
+        // Gets the top N populated countries in a set continent
+        Countries = main.getNCountriesInContinent(10, "Europe");
+        main.displayCountries(Countries);
+
+        // Gets the top N populated countries in a set region
+        Countries = main.getNCountriesInRegion(1, "British Islands");
+        main.displayCountries(Countries);
+
+        // Gets all the Capital Cities in the world
+        CaptialCities = main.getCapitalCitiesInWorld();
+        main.displayCapitalCity(CaptialCities);
+
+        // Gets all the Capital Cities in the world
+        CaptialCities = main.getCapitalCitiesInContinent("Africa");
+        main.displayCapitalCity(CaptialCities);
+
+        // Gets all the Capital Cities in the world
+        CaptialCities = main.getCapitalCitiesInRegion("British Islands");
+        main.displayCapitalCity(CaptialCities);
+
+        // The top N populated capital cities in the world where N is provided by the user.
+        CaptialCities = main.getNCapitalCities(10);
+        main.displayCapitalCity(CaptialCities);
+
+        // The top N populated capital cities in a continent where N is provided by the user.
+        CaptialCities = main.getNCapitalCitiesInContinent("Africa", 10);
+        main.displayCapitalCity(CaptialCities);
+
+        //All the capital cities in a region organised by largest to smallest.
+        CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
+        main.displayCapitalCity(CaptialCities);
+
+        // Population of people who live in a continent and the number/percentage of people who live in and outside cities
+        Population = main.getPopulationContinent();
         main.displayPopulation(Population);
 
-        // Display population of the world
-        //main.populationOfWorld();
+        // Population of people who live in a region and the number/percentage of people who live in and outside cities
+        Population = main.getPopulationRegion();
+        main.displayPopulation(Population);
 
-        // Display population of a continent
-       // main.populationOfContinent("Europe");
+        // Population of people who live in a country and the number/percentage of people who live in and outside cities
+        Population = main.getPopulationCountry();
+        main.displayPopulation(Population);
 
-        // Display population of a region
-       // main.populationOfRegion("Middle East");
+        // Specified languages people speak listed most spoken to least spoken
+        Language = main.getLanguage();
+        main.displayLanguage(Language);
 
-        // Display population of a country
-        //main.populationOfCountry("South Africa");
-
-        // Display population of a district
-       // main.populationOfDistrict("Scotland");
-
-        // Display population of a city
-        //main.populationOfCity("Roma");
-
-
-        // Display Language Report
-       // main.displayLanguage(Language);
-
-        // Disconnect from database
         main.disconnect();
     }
 
