@@ -59,7 +59,7 @@ public class Main
         //Cities = main.getNCitiesInDistrict("Scotland", 3);
 
         // list that contains countries
-        //ArrayList<Country> Countries = new ArrayList<>();
+        ArrayList<Country> Countries = new ArrayList<>();
 
         // Gets all the countries in the world sorted by largest population to the smallest population
         //Countries = main.getCountries();
@@ -100,13 +100,23 @@ public class Main
 
         // list that contains population
         ArrayList<Population> Population = new ArrayList<>();
+
+        //population of people who live in a continent and the number/percentage of people who live in and outside cities
         //Population = main.getPopulationContinent();
+
+        //population of people who live in a region and the number/percentage of people who live in and outside cities
         //Population = main.getPopulationRegion();
         Population = main.getPopulationCountry();
         //CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
 
 
+        //population of people who live in a country and the number/percentage of people who live in and outside cities
+        //Population = main.getPopulationCountry();
 
+        // list that contains language information
+        ArrayList<Language> Language = new ArrayList<>();
+        // Specified languages people speak listed most spoken to least spoken
+        Language = main.getLanguage();
 
         // Display Country Reports
         //main.displayCapitalCity(CaptialCities);
@@ -118,7 +128,7 @@ public class Main
         //main.displayCity(CaptialCities);
 
         // Display Population Reports
-        main.displayPopulation(Population);
+        //main.displayPopulation(Population);
         //main.displayCapitalCity(CaptialCities);
 
         // Display population of the world
@@ -139,6 +149,9 @@ public class Main
         // Display population of a city
         main.populationOfCity("Roma");
 
+
+        // Display Language Report
+        main.displayLanguage(Language);
 
         // Disconnect from database
         main.disconnect();
@@ -876,6 +889,7 @@ public class Main
         return Countries;
     }
 
+
     /**
      * Displays Country Report
      * @param countries
@@ -1177,6 +1191,10 @@ public class Main
 
     }
 
+    /**
+     * Gets the population of people who live in a continent and the number/percentage of people who live in and outside cities
+     * @return list of continents
+     */
     public ArrayList<Population> getPopulationContinent()
     {
         ArrayList<Population> population = new ArrayList<>();
@@ -1215,6 +1233,10 @@ public class Main
 
     }
 
+    /**
+     * Gets the population of people who live in a region and the number/percentage of people who live in and outside cities
+     * @return list of region
+     */
     public ArrayList<Population> getPopulationRegion()
     {
         ArrayList<Population> population = new ArrayList<>();
@@ -1253,6 +1275,10 @@ public class Main
 
     }
 
+    /**
+     * Gets the population of people who live in a country and the number/percentage of people who live in and outside cities
+     * @return list of countries
+     */
     public ArrayList<Population> getPopulationCountry()
     {
         ArrayList<Population> population = new ArrayList<>();
@@ -1470,6 +1496,60 @@ public class Main
     }
 
 
+    /**
+     * Gets the specified languages people speak listed most spoken to least spoken
+     * @return list of languages
+     */
+    public ArrayList<Language> getLanguage()
+    {
+        ArrayList<Language> language = new ArrayList<>();
+
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT countrylanguage.Language AS 'Language',\n" +
+                    "ROUND(SUM(((countrylanguage.Percentage)/100)*country.Population)) AS 'NoOfPeople',\n" +
+                    "ROUND((((SUM(((countrylanguage.Percentage)/100)*country.Population))\n" +
+                    "/(SELECT SUM(country.Population) FROM country))*100), 2)\n" +
+                    "AS 'Percentage'\n" +
+                    "\n" +
+                    "FROM countrylanguage INNER JOIN country ON countrylanguage.CountryCode = country.Code\n" +
+                    "WHERE countrylanguage.Language = 'English' OR countrylanguage.Language = 'Chinese'\n" +
+                    "OR countrylanguage.Language = 'Hindi' OR countrylanguage.Language = 'Spanish'\n" +
+                    "OR countrylanguage.Language = 'Arabic'\n" +
+                    "GROUP BY countrylanguage.Language\n" +
+                    "ORDER BY SUM(((countrylanguage.Percentage)/100)*country.Population) DESC;";
+
+            ResultSet result = statement.executeQuery(strSelect);
+
+            Language languages;
+
+            while (result.next())
+            {
+                languages = new Language();
+                languages.Name = result.getString("Language");
+                languages.NoOfPeople = result.getLong("NoOfPeople");
+                languages.Percentage = result.getDouble("Percentage");
+
+                language.add(languages);
+            }
+            return language;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get continent population details");
+            return null;
+        }
+
+    }
+
+    /**
+     * Displays a capital city report
+     * @param capitalCities
+     */
     public void displayCapitalCity(ArrayList<City> capitalCities)
     {
         if (capitalCities == null)
@@ -1489,6 +1569,11 @@ public class Main
         }
 
     }
+
+    /**
+     * Displays a population report
+     * @param Population
+     */
     public void displayPopulation(ArrayList<Population> Population)
     {
         if (Population== null)
@@ -1510,6 +1595,31 @@ public class Main
             }
         }
 
+    }
+
+    /**
+     * Displays a language report
+     * @param Language
+     */
+    public void displayLanguage(ArrayList<Language> Language)
+    {
+        if (Language == null)
+        {
+            System.out.println("No Languages");
+            return;
+        }
+        else {
+            //format table for countries
+            String leftAlignFormat = "| %-8s | %-10s | %-10s |%n";
+            System.out.format("+----------+------------+------------+%n");
+            System.out.format("| Language | NoOfPeople | Percentage |%n");
+            System.out.format("+----------+------------+------------+%n");
+
+            for (Language language : Language) {
+                System.out.format(leftAlignFormat, language.Name, language.NoOfPeople, language.Percentage);
+                System.out.format("+----------+------------+------------+%n");
+            }
+        }
     }
 
 
