@@ -10,6 +10,8 @@ Develop : ![license](https://img.shields.io/github/actions/workflow/status/nybbl
 
 ![Alt Text](https://cdn.discordapp.com/attachments/1068102952427995189/1076128860904628274/6276-spinning-cat.gif)
 
+32 requirements of 32 have been implemented, which is 100%.
+
 | ID | Name                                                                                                                                                                                            | Met | Screenshot                      |
 |----|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----|---------------------------------|
 | 1  | All the countries in the world organised by largest population to smallest.                                                                                                                     | Yes | ![alt-text](screenshots/1.png)  |
