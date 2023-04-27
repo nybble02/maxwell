@@ -6,7 +6,7 @@
 
     <groupId>com.napier.maxwell</groupId>
     <artifactId>maxwell</artifactId>
-    <version>0.1.0.4</version>
+    <version>0.1.0.5</version>
 
     <properties>
         <maven.compiler.source>10</maven.compiler.source>
@@ -34,25 +34,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
-                <configuration>
-                    <finalName>maxwell</finalName>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.napier.maxwell.Main</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <appendAssemblyId>false</appendAssemblyId>
-                </configuration>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
+                        <id>default-jar</id>
+                        <!-- skip building the default-jar-->
+                        <phase>none</phase>
                     </execution>
                 </executions>
             </plugin>
