@@ -92,21 +92,41 @@ public class Main
         //CaptialCities = main.getNCapitalCities(10);
 
         // The top N populated capital cities in a continent where N is provided by the user.
-        CaptialCities = main.getNCapitalCitiesInContinent("Africa", 10);
+       // CaptialCities = main.getNCapitalCitiesInContinent("Africa", 10);
 
         //All the capital cities in a region organised by largest to smallest.
-        CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
+        //CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
 
 
 
-        // Display Country Reports
-        main.displayCapitalCity(CaptialCities);
 
         // Display Country Reports
         //main.displayCapitalCity(CaptialCities);
 
         // Display Country Reports
         //main.displayCapitalCity(CaptialCities);
+
+        // Display Country Reports
+        //main.displayCapitalCity(CaptialCities);
+
+        // Display population of the world
+        main.populationOfWorld();
+
+        // Display population of a continent
+        main.populationOfContinent("Europe");
+
+        // Display population of a region
+        main.populationOfRegion("Middle East");
+
+        // Display population of a country
+        main.populationOfCountry("South Africa");
+
+        // Display population of a district
+        main.populationOfDistrict("Buenos Aires");
+
+        // Display population of a city
+        main.populationOfCity("Roma");
+
 
         // Disconnect from database
         main.disconnect();
@@ -1141,6 +1161,185 @@ public class Main
             System.out.println(e.getMessage());
             System.out.println("Failed to get capital City details");
             return null;
+        }
+
+    }
+
+    /**
+     * Get the population of the world
+     */
+    public void populationOfWorld()
+    {
+        System.out.println("Getting the population of the world");
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT sum(Population) AS 'Population of world' FROM country;";
+
+            ResultSet result = statement.executeQuery(strSelect);
+            while (result.next())
+            {
+                String pop = result.getString("Population of world");
+
+                System.out.println("Population of the world: " + pop);
+            }
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital City details");
+        }
+
+    }
+
+    /**
+     * Population of a continent
+     * @param continent
+     */
+    public void populationOfContinent(String continent)
+    {
+        System.out.println("Getting the population of " + continent);
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT sum(Population) as 'Population of continent'  FROM country WHERE Continent = " + "\'" + continent +"\'";
+
+            ResultSet result = statement.executeQuery(strSelect);
+            while (result.next())
+            {
+                String pop = result.getString("Population of continent");
+
+                System.out.println("Population of " + continent + " " + pop);
+            }
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital City details");
+        }
+
+    }
+
+    /**
+     * population of a region
+     * @param region
+     */
+    public void populationOfRegion(String region)
+    {
+        System.out.println("Getting the population of " + region);
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT sum(Population) as 'Population of continent'  FROM country WHERE Region = " + "\'" + region +"\'";
+
+            ResultSet result = statement.executeQuery(strSelect);
+            while (result.next())
+            {
+                String pop = result.getString("Population of continent");
+
+                System.out.println("Population of " + region + " " + pop);
+            }
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital City details");
+        }
+
+    }
+
+    /**
+     * Population of a country
+     * @param country
+     */
+    public void populationOfCountry(String country)
+    {
+        System.out.println("Getting the population of " + country);
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT sum(Population) as 'Population of country'  FROM country WHERE country.Name = " + "\'" + country +"\'";
+
+            ResultSet result = statement.executeQuery(strSelect);
+            while (result.next())
+            {
+                String pop = result.getString("Population of country");
+
+                System.out.println("Population of " + country + " " + pop);
+            }
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital City details");
+        }
+
+    }
+
+    /**
+     * Population of a district
+     * @param district
+     */
+    public void populationOfDistrict(String district)
+    {
+        System.out.println("Getting the population of " + district);
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT SUM(Population) as 'Population of district'  FROM city WHERE city.District = " + "\'" + district +"\'";
+
+            ResultSet result = statement.executeQuery(strSelect);
+            while (result.next())
+            {
+                String pop = result.getString("Population of district");
+
+                System.out.println("Population of " + district + " " + pop);
+            }
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital City details");
+        }
+
+    }
+
+
+    /**
+     * Gets the population of a city
+     * @param city
+     */
+    public void populationOfCity(String city)
+    {
+        System.out.println("Getting the population of " + city);
+        try
+        {
+            // Create SQL Statement
+            Statement statement = con.createStatement();
+            String strSelect = "SELECT SUM(Population) as 'Population of city'  FROM city WHERE city.Name = " + "\'" + city +"\'";
+
+            ResultSet result = statement.executeQuery(strSelect);
+            while (result.next())
+            {
+                String pop = result.getString("Population of city");
+                System.out.println("Population of " + city + " " + pop);
+            }
+
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital City details");
         }
 
     }
