@@ -121,7 +121,7 @@ public class Main
         main.displayCapitalCity(CaptialCities);
 
         //All the capital cities in a region organised by largest to smallest.
-        CaptialCities = main.getNCapitalCitiesInRegion("British Islands", 10);
+        CaptialCities = main.getNCapitalCitiesInRegion("Caribbean", 10);
         main.displayCapitalCity(CaptialCities);
 
         // Population of people who live in a continent and the number/percentage of people who live in and outside cities
