@@ -136,7 +136,7 @@ public class Main
         Population = main.getPopulationCountry();
         main.displayPopulation(Population);
 
-        // Specified languages people speak listed most spoken to least spoken
+        // Specified languages people speak listed most spoken to least spoken 5
         Language = main.getLanguage();
         main.displayLanguage(Language);
 
