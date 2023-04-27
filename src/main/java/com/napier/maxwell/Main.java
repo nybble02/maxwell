@@ -97,7 +97,7 @@ public class Main
         main.displayCountries(Countries);
 
         // Gets the top N populated countries in a set region
-        Countries = main.getNCountriesInRegion(1, "British Islands");
+        Countries = main.getNCountriesInRegion(1, "Caribbean");
         main.displayCountries(Countries);
 
         // Gets all the Capital Cities in the world
