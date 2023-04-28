@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master
-      - Features/Actions
 jobs:
   UnitTests:
     name: Unit Tests
