@@ -58,7 +58,7 @@ jobs:
           flags: Integration Tests # optional
           verbose: true # optional (default = false)
   build:
-    name: Build and Start Using docker-compose
+    name: Build Run in Docker and Deploy Release
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
@@ -70,17 +70,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Build with Maven
-        run: mvn package
-      - name: Run docker compose
-        run: docker-compose up --abort-on-container-exit
-      - name: CodeCov
-        uses: codecov/codecov-action@v2
-        with:
-          # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          directory: ./target/site/jacoco
-          flags: Integration Tests
-          verbose: true
       - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
