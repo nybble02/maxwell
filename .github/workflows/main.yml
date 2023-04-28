@@ -79,7 +79,7 @@ jobs:
           # token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           directory: ./target/site/jacoco
           flags: Integration Tests
-          verbose: true # optional (default = false)
+          verbose: true
       - name: Package and Run docker compose
         run: |
           mvn package -DskipTests
