@@ -57,7 +57,7 @@ jobs:
           flags: Integration Tests # optional
           verbose: true # optional (default = false)
   build:
-    name: Build and Start Using docker-compose
+    name: Build Run in Docker and Deploy Release
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
